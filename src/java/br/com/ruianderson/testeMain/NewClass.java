@@ -5,6 +5,8 @@
  */
 package br.com.ruianderson.testeMain;
 
+import br.com.ruianderson.arrays.OpcaoDAO;
+import br.com.ruianderson.arrays.OpcaoSEXO;
 import br.com.ruianderson.dao.AcademiaDAO;
 import br.com.ruianderson.dao.AlunoDAO;
 import br.com.ruianderson.dao.ExercicioDAO;
@@ -35,6 +37,35 @@ public class NewClass {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
+        //excluirAluno();
+        testeTransacao();
+        
+
+    }
+
+    private static void excluirAluno() throws ClassNotFoundException, SQLException {
+        int ok = 0;
+        
+        Conexao conect = TransationSRV.begin();
+        
+        ok = EnderecoSRV.mergeEndereco(conect, OpcaoDAO.REMOVER, 1, "Rua Silva Gomes", "Cascadura", 70, "Teste", "21350050", "aluno", new Academia(1), new Aluno(25), new Cidade(1));
+        //ok = 0;
+        if (ok > 0) {
+            
+            
+            ok = AlunoSRV.mergeAluno(conect, OpcaoDAO.REMOVER, 25, "Simone Moraes", "21987600777", "21265135", OpcaoSEXO.FEMININO, "08/11/1975", "pedro@teste12");
+            if (ok > 0) {
+                TransationSRV.commit(conect);
+            } else {
+                TransationSRV.rollback(conect);
+            }
+        } else {
+
+            TransationSRV.rollback(conect);
+        }
+    }
+
+    private static void testeTransacao() throws SQLException, ClassNotFoundException {
         //Inserindo, atualizando ou apagando uma academia
         // System.out.println(AcademiaSRV.mergeAcademia(1,999,"Academia nova","3333333","Rui Anderson","rui@teste","999999"));
         //Listando todas
@@ -54,11 +85,11 @@ public class NewClass {
 
         Conexao conect = TransationSRV.begin();
 
-        ok = AlunoSRV.mergeAcademia(conect, 1, 1, "Simone Moraes", "21987600777", "21265135", "M", "08/11/1975", "pedro@teste12");
+        ok = AlunoSRV.mergeAluno(conect, OpcaoDAO.ADICIONAR, 1, "Simone Moraes", "21987600777", "21265135", OpcaoSEXO.FEMININO, "08/11/1975", "pedro@teste12");
         //ok = 0;
         if (ok > 0) {
 
-            ok = EnderecoSRV.mergeEndereco(conect, 1, 1, "Rua Silva Gomes", "Cascadura", 70, "Teste", "21350050", "aluno", new Academia(1), new Aluno(ok), new Cidade(1));
+            ok = EnderecoSRV.mergeEndereco(conect, OpcaoDAO.ADICIONAR, 1, "Rua Silva Gomes", "Cascadura", 70, "Teste", "21350050", "aluno", new Academia(1), new Aluno(ok), new Cidade(1));
             if (ok > 0) {
                 TransationSRV.commit(conect);
             } else {
@@ -68,7 +99,6 @@ public class NewClass {
 
             TransationSRV.rollback(conect);
         }
-
     }
 
 }
