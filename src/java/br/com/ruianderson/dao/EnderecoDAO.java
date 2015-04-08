@@ -123,8 +123,37 @@ public class EnderecoDAO implements Dao_base<Endereco> {
     }
 
     @Override
-    public int remover(Endereco objt, Conexao con) {
-        throw new UnsupportedOperationException("Metodo não implementado."); //To change body of generated methods, choose Tools | Templates.
+    public int remover(Endereco endereco, Conexao con) {
+        int var_retorno = 0;
+        
+        PreparedStatement ps;
+        
+        try {
+            // Criando o comonado sql
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM ENDERECO WHERE ALUNO_ID = ?");
+
+            // Passando os parametros para o comando
+            ps.setInt(1, endereco.getAlunoId().getId());
+
+            //Executando o camando no banco
+            int result = ps.executeUpdate();
+
+            // Verificando se houve execução com sucesso.
+            if (result > 0) {
+                
+                var_retorno = endereco.getAlunoId().getId();
+            }
+
+            // fechando conexão
+            ps.close();
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return var_retorno;
     }
 
     @Override
