@@ -20,6 +20,8 @@ public class DetalheTreino implements Serializable {
     private Integer repeticoes;
     private int diasSemanaId;
     private Float cargaInicial;
+    private Exercicio exercicio;
+    private Treino treino;
 
     public DetalheTreino() {
     }
@@ -73,6 +75,35 @@ public class DetalheTreino implements Serializable {
         this.cargaInicial = cargaInicial;
     }
 
+    /**
+     * @return the exercicio
+     */
+    public Exercicio getExercicio() {
+        return exercicio;
+    }
+
+    /**
+     * @param exercicio the exercicio to set
+     */
+    public void setExercicio(Exercicio exercicio) {
+        this.exercicio = exercicio;
+    }
+
+    /**
+     * @return the treino
+     */
+    public Treino getTreino() {
+        return treino;
+    }
+
+    /**
+     * @param treino the treino to set
+     */
+    public void setTreino(Treino treino) {
+        this.treino = treino;
+    }
+
+    
    
     
 }
