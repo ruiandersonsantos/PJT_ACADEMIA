@@ -40,6 +40,7 @@ public class Avaliacao implements Serializable {
     private Float dobraSupraIliaca;
     private Float dobraAbdominal;
     private Float dobraCoxa;
+    private Academia academia;
 
     public Avaliacao() {
     }
@@ -239,5 +240,21 @@ public class Avaliacao implements Serializable {
     public void setDobraCoxa(Float dobraCoxa) {
         this.dobraCoxa = dobraCoxa;
     }
+
+    /**
+     * @return the academia
+     */
+    public Academia getAcademia() {
+        return academia;
+    }
+
+    /**
+     * @param academia the academia to set
+     */
+    public void setAcademia(Academia academia) {
+        this.academia = academia;
+    }
+    
+    
 
 }

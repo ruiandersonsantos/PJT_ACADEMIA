@@ -23,6 +23,7 @@ public class Envio implements Serializable {
     private Integer status;
     private Usuario usuarioId;
     private Mensagem mensagemId;
+    private Academia academia;
 
     public Envio() {
     }
@@ -79,6 +80,20 @@ public class Envio implements Serializable {
         this.mensagemId = mensagemId;
     }
 
-  
+    /**
+     * @return the academia
+     */
+    public Academia getAcademia() {
+        return academia;
+    }
+
+    /**
+     * @param academia the academia to set
+     */
+    public void setAcademia(Academia academia) {
+        this.academia = academia;
+    }
+
+    
     
 }

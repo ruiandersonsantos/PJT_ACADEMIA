@@ -23,6 +23,7 @@ public class Treino implements Serializable {
     private String objetivo;
     private List<HistoricoTreino> historicoTreinoList;
     private List<DetalheTreino> detalheTreinoList;
+    private Academia academia;
 
     public Treino() {
     }
@@ -77,6 +78,20 @@ public class Treino implements Serializable {
 
     public void setDetalheTreinoList(List<DetalheTreino> detalheTreinoList) {
         this.detalheTreinoList = detalheTreinoList;
+    }
+
+    /**
+     * @return the academia
+     */
+    public Academia getAcademia() {
+        return academia;
+    }
+
+    /**
+     * @param academia the academia to set
+     */
+    public void setAcademia(Academia academia) {
+        this.academia = academia;
     }
 
     

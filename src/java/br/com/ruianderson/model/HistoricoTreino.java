@@ -26,6 +26,7 @@ public class HistoricoTreino implements Serializable {
     private Treino treinoId;
     private Avaliacao avaliacaoId;
     private Professor professorId;
+    private Academia academia;
 
     public HistoricoTreino() {
     }
@@ -104,6 +105,20 @@ public class HistoricoTreino implements Serializable {
 
     public void setProfessorId(Professor professorId) {
         this.professorId = professorId;
+    }
+
+    /**
+     * @return the academia
+     */
+    public Academia getAcademia() {
+        return academia;
+    }
+
+    /**
+     * @param academia the academia to set
+     */
+    public void setAcademia(Academia academia) {
+        this.academia = academia;
     }
 
 

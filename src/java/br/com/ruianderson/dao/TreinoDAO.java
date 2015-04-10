@@ -31,12 +31,13 @@ public class TreinoDAO implements Dao_base<Treino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO TREINO (DESCRICAO, OBSERVACAO, OBJETIVO) VALUES(?, ?, ?);");
+            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO TREINO (DESCRICAO, OBSERVACAO, OBJETIVO, ACADEMIA_ID) VALUES(?, ?, ?, ?);");
 
             // Passando os parametros para o comando
             ps.setString(1, treino.getDescricao());
             ps.setString(2, treino.getObservacao());
             ps.setString(3, treino.getObjetivo());
+            ps.setInt(4, treino.getAcademia().getId());
 
             //Executando o camando no banco
             ps.executeUpdate();
@@ -74,13 +75,14 @@ public class TreinoDAO implements Dao_base<Treino> {
             ps = (PreparedStatement) con.getPreparedStatement("UPDATE TREINO SET "
                     + "DESCRICAO = ?, "
                     + "OBSERVACAO = ?, "
-                    + "OBJETIVO = ? WHERE ID = ? ;");
+                    + "OBJETIVO = ? WHERE ID = ? AND ACADEMIA_ID = ?;");
 
             // Passando os parametros para o comando
             ps.setString(1, treino.getDescricao());
             ps.setString(2, treino.getObservacao());
             ps.setString(3, treino.getObjetivo());
             ps.setInt(4, treino.getId());
+            ps.setInt(5, treino.getAcademia().getId());
 
             //Executando o camando no banco
             int retornoDoID = ps.executeUpdate();
@@ -110,10 +112,11 @@ public class TreinoDAO implements Dao_base<Treino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM TREINO WHERE ID = ? ;");
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM TREINO WHERE ID = ? AND ACADEMIA_ID = ?;");
 
             // Passando os parametros para o comando
             ps.setInt(1, treino.getId());
+            ps.setInt(2, treino.getAcademia().getId());
 
             //Executando o camando no banco
             int retornoDoID = ps.executeUpdate();
@@ -144,9 +147,7 @@ public class TreinoDAO implements Dao_base<Treino> {
         try {
             // Criando o comonado sql
             ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DESCRICAO, OBSERVACAO, OBJETIVO FROM TREINO "
-                    + "INNER JOIN DETALHE_TREINO ON TREINO.ID = DETALHE_TREINO.TREINO_ID "
-                    + "INNER JOIN EXERCICIO ON EXERCICIO.ID = DETALHE_TREINO.EXERCICIO_ID "
-                    + "WHERE EXERCICIO.ACADEMIA_ID = ?;");
+                   + "WHERE ACADEMIA_ID = ?;");
 
             ps.setInt(1, id_solicitante);
 
@@ -184,9 +185,7 @@ public class TreinoDAO implements Dao_base<Treino> {
         try {
             // Criando o comonado sql
             ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DESCRICAO, OBSERVACAO, OBJETIVO FROM TREINO "
-                    + "INNER JOIN DETALHE_TREINO ON TREINO.ID = DETALHE_TREINO.TREINO_ID "
-                    + "INNER JOIN EXERCICIO ON EXERCICIO.ID = DETALHE_TREINO.EXERCICIO_ID "
-                    + "WHERE EXERCICIO.ACADEMIA_ID = ? AND TREINO.ID = ? ;");
+                  + "WHERE ACADEMIA_ID = ? AND TREINO.ID = ? ;");
 
             ps.setInt(1, id_solicitante);
             ps.setInt(2, id);
@@ -223,23 +222,17 @@ public class TreinoDAO implements Dao_base<Treino> {
          switch (tipoPesquisa) {
             case 1:
                 sql = "SELECT ID, DESCRICAO, OBSERVACAO, OBJETIVO FROM TREINO "
-                    + "INNER JOIN DETALHE_TREINO ON TREINO.ID = DETALHE_TREINO.TREINO_ID "
-                    + "INNER JOIN EXERCICIO ON EXERCICIO.ID = DETALHE_TREINO.EXERCICIO_ID "
-                    + "WHERE EXERCICIO.ACADEMIA_ID = ? AND DESCRICAO LIKE ? '%';";
+                    + "WHERE ACADEMIA_ID = ? AND DESCRICAO LIKE ? '%';";
                 break;
             
             case 2:
                 sql = "SELECT ID, DESCRICAO, OBSERVACAO, OBJETIVO FROM TREINO "
-                    + "INNER JOIN DETALHE_TREINO ON TREINO.ID = DETALHE_TREINO.TREINO_ID "
-                    + "INNER JOIN EXERCICIO ON EXERCICIO.ID = DETALHE_TREINO.EXERCICIO_ID "
-                    + "WHERE EXERCICIO.ACADEMIA_ID = ? DESCRICAO LIKE '%' ?;";
+                    + "WHERE ACADEMIA_ID = ? DESCRICAO LIKE '%' ?;";
                 break;
             
             case 3:
                 sql = "SELECT ID, DESCRICAO, OBSERVACAO, OBJETIVO FROM TREINO "
-                    + "INNER JOIN DETALHE_TREINO ON TREINO.ID = DETALHE_TREINO.TREINO_ID "
-                    + "INNER JOIN EXERCICIO ON EXERCICIO.ID = DETALHE_TREINO.EXERCICIO_ID "
-                    + "WHERE EXERCICIO.ACADEMIA_ID = ? AND DESCRICAO LIKE '%' ? '%' ;";
+                    + "WHERE ACADEMIA_ID = ? AND DESCRICAO LIKE '%' ? '%' ;";
                 break;
         }
 

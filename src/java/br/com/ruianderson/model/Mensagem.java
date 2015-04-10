@@ -20,6 +20,7 @@ public class Mensagem implements Serializable {
     private String texto;
     private String assunto;
     private List<Envio> envioList;
+     private Academia academia;
 
     public Mensagem() {
     }
@@ -59,5 +60,21 @@ public class Mensagem implements Serializable {
     public void setEnvioList(List<Envio> envioList) {
         this.envioList = envioList;
     }
+
+    /**
+     * @return the academia
+     */
+    public Academia getAcademia() {
+        return academia;
+    }
+
+    /**
+     * @param academia the academia to set
+     */
+    public void setAcademia(Academia academia) {
+        this.academia = academia;
+    }
+    
+    
 
 }

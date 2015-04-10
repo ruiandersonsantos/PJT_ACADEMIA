@@ -22,6 +22,7 @@ public class DetalheTreino implements Serializable {
     private Float cargaInicial;
     private Exercicio exercicio;
     private Treino treino;
+    private Academia academia;
 
     public DetalheTreino() {
     }
@@ -101,6 +102,20 @@ public class DetalheTreino implements Serializable {
      */
     public void setTreino(Treino treino) {
         this.treino = treino;
+    }
+
+    /**
+     * @return the academia
+     */
+    public Academia getAcademia() {
+        return academia;
+    }
+
+    /**
+     * @param academia the academia to set
+     */
+    public void setAcademia(Academia academia) {
+        this.academia = academia;
     }
 
     
