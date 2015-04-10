@@ -114,10 +114,11 @@ public class ProfessorDAO implements Dao_base<Professor> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM PROFESSOR WHERE ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM PROFESSOR WHERE ID = ? AND ACADEMIA_ID = ?");
 
             // Passando os parametros para o comando
             ps.setInt(1, prof.getId());
+            ps.setInt(2, prof.getAcademiaId().getId());
 
             //Executando o camando no banco
             int result = ps.executeUpdate();

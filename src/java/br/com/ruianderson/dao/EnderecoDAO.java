@@ -88,7 +88,7 @@ public class EnderecoDAO implements Dao_base<Endereco> {
                     + "PAR = ?, "
                     + "ACADEMIA_ID = ?, "
                     + "ALUNO_ID = ?, "
-                    + "CIDADE_ID = ? WHERE ID = ? ");
+                    + "CIDADE_ID = ? WHERE ALUNO_ID = ? ");
 
             // Passando os parametros para o comando
             ps.setString(1, endereco.getLogradouro());
@@ -100,7 +100,7 @@ public class EnderecoDAO implements Dao_base<Endereco> {
             ps.setInt(7, endereco.getAcademiaId().getId());
             ps.setInt(8, endereco.getAlunoId().getId());
             ps.setInt(9, endereco.getCidadeId().getId());
-            ps.setInt(10, endereco.getId());
+            ps.setInt(10, endereco.getAlunoId().getId());
 
             //Executando o camando no banco
             int retornoDoID = ps.executeUpdate();
