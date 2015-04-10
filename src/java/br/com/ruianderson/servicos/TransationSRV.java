@@ -5,6 +5,7 @@
  */
 package br.com.ruianderson.servicos;
 
+import br.com.ruianderson.arrays.OpcaoTRANSACAO;
 import br.com.ruianderson.dao.TransationDAO;
 import br.com.ruianderson.dbutil.Conexao;
 import java.sql.SQLException;
@@ -15,9 +16,18 @@ import java.sql.SQLException;
  */
 public final class TransationSRV {
     
-     public final static Conexao begin() throws ClassNotFoundException, SQLException{
+     public final static Conexao begin(OpcaoTRANSACAO opcao) throws ClassNotFoundException, SQLException{
         Conexao con = new Conexao();
-        con.GetConnection().setAutoCommit(false);
+        
+        if(opcao == OpcaoTRANSACAO.COM_TRANSACAO){
+            
+            con.GetConnection().setAutoCommit(false);
+            
+        }else{
+            
+            con.GetConnection().setAutoCommit(true);
+        }
+        
         return con;
     }
     

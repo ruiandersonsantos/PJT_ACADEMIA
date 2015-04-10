@@ -19,17 +19,9 @@ import br.com.ruianderson.utilitarios.Obj_gen;
 public final class AlunoSRV {
 
     // Operação 1 - Adiciona, 2 - Atualiza, 3 - remove 
-    public final static int mergeAluno(Conexao con, OpcaoDAO operacao, int id, String nome, String celular, String telefone, OpcaoSEXO sexo, String dt_nasc, String email) {
+    public final static int mergeAluno(Conexao con, OpcaoDAO operacao, Aluno aluno) {
         
         int retorno = 0;
-
-        Aluno aluno = new Aluno();
-        aluno.setNome(nome);
-        aluno.setCelular(celular);
-        aluno.setTelefone(telefone);
-        aluno.setSexo(sexo.getValor());
-        aluno.setDtNascimento(Obj_gen.convertStringToSqlDate(dt_nasc));
-        aluno.setEmail(email);
 
         AlunoDAO daoAluno = new AlunoDAO();
 
@@ -39,12 +31,10 @@ public final class AlunoSRV {
 
         } else if (operacao == OpcaoDAO.ATUALIZAR) {
 
-            aluno.setId(id);
-            retorno = daoAluno.atualizar(aluno, con);
+          retorno = daoAluno.atualizar(aluno, con);
 
         } else if (operacao == OpcaoDAO.REMOVER) {
 
-            aluno.setId(id);
             retorno = daoAluno.remover(aluno, con);
 
         }

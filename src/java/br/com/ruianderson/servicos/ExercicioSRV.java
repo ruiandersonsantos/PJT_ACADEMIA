@@ -19,14 +19,8 @@ import java.util.List;
 public final class ExercicioSRV {
 
     // Operação 1 - Adiciona, 2 - Atualiza, 3 - remove 
-    public final static int mergeExercicio(Conexao con, OpcaoDAO operacao, int id, String descricao, String apelido, Academia academia) {
+    public final static int mergeExercicio(Conexao con, OpcaoDAO operacao, Exercicio exercicio) {
         int retorno = 0;
-
-        Exercicio exercicio = new Exercicio();
-
-        exercicio.setApelido(apelido);
-        exercicio.setDescricao(descricao);
-        exercicio.setAcademiaId(academia);
 
         ExercicioDAO daoExercicio = new ExercicioDAO();
 
@@ -36,12 +30,10 @@ public final class ExercicioSRV {
 
         } else if (operacao == OpcaoDAO.ATUALIZAR) {
 
-            exercicio.setId(id);
             retorno = daoExercicio.atualizar(exercicio, con);
 
         } else if (operacao == OpcaoDAO.REMOVER) {
 
-            exercicio.setId(id);
             retorno = daoExercicio.remover(exercicio, con);
 
         }

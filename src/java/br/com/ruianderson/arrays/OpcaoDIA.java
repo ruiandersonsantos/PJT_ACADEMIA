@@ -9,13 +9,13 @@ package br.com.ruianderson.arrays;
  *
  * @author Rui
  */
-public enum OpcaoDAO {
+public enum OpcaoDIA {
     
-    ADICIONAR(1), ATUALIZAR(2), REMOVER(3);
+    DOMINGO(0), SEGUNDA(1), TERCA(2), QUARTA(3), QUINTA(4), SEXTA(5), SABADO(6);
     
     private final int valor; 
     
-    OpcaoDAO(int valorOpcao){ 
+    OpcaoDIA(int valorOpcao){ 
         
         valor = valorOpcao; 
     } 
@@ -23,5 +23,7 @@ public enum OpcaoDAO {
     public int getValor(){ 
         return valor; 
     }
+
+
     
 }

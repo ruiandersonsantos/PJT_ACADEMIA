@@ -17,17 +17,11 @@ import java.util.List;
  */
 public final class AcademiaSRV {
 
-    public final static int mergeAcademia(Conexao con, OpcaoDAO operacao, int id, String razao, String cnpj, String contato, String email, String telefone) {
+    public final static int mergeAcademia(Conexao con, OpcaoDAO operacao, Academia academia) {
         // Operação 1 - Adiciona, 2 - Atualiza, 3 - remove 
 
         int retorno = 0;
 
-        Academia academia = new Academia();
-        academia.setRazao(razao);
-        academia.setCnpj(cnpj);
-        academia.setContato(contato);
-        academia.setEmail(email);
-        academia.setTelefone(telefone);
 
         AcademiaDAO daoAcademia = new AcademiaDAO();
 
@@ -37,12 +31,10 @@ public final class AcademiaSRV {
 
         } else if (operacao == OpcaoDAO.ATUALIZAR) {
 
-            academia.setId(id);
-            retorno = daoAcademia.atualizar(academia, con);
+           retorno = daoAcademia.atualizar(academia, con);
 
         } else if (operacao == OpcaoDAO.REMOVER) {
 
-            academia.setId(id);
             retorno = daoAcademia.remover(academia, con);
 
         }

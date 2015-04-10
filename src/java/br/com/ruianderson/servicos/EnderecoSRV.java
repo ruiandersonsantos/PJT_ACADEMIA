@@ -20,21 +20,8 @@ import br.com.ruianderson.model.Endereco;
 public final class EnderecoSRV {
 
     // Operação 1 - Adiciona, 2 - Atualiza, 3 - remove 
-    public final static int mergeEndereco(Conexao con, OpcaoDAO operacao, int id, String logradouro, String bairro,
-            int numero, String complemento, String cep, String par, Academia academia, Aluno aluno, Cidade cidade) {
+    public final static int mergeEndereco(Conexao con, OpcaoDAO operacao, Endereco endereco) {
         int retorno = 0;
-
-        Endereco endereco = new Endereco();
-        endereco.setId(id);
-        endereco.setLogradouro(logradouro);
-        endereco.setBairro(bairro);
-        endereco.setNumero(numero);
-        endereco.setComplemento(complemento);
-        endereco.setCep(cep);
-        endereco.setPar(par);
-        endereco.setAcademiaId(academia);
-        endereco.setAlunoId(aluno);
-        endereco.setCidadeId(cidade);
 
         EnderecoDAO daoEndereco = new EnderecoDAO();
 
@@ -43,13 +30,11 @@ public final class EnderecoSRV {
             retorno = daoEndereco.adicionar(endereco, con);
 
         } else if (operacao == OpcaoDAO.ATUALIZAR) {
-
-            endereco.setId(id);
+           
             retorno = daoEndereco.atualizar(endereco, con);
 
         } else if (operacao == OpcaoDAO.REMOVER) {
 
-            endereco.setId(id);
             retorno = daoEndereco.remover(endereco, con);
 
         }

@@ -28,6 +28,8 @@ public class Aluno implements Serializable {
     private List<Endereco> enderecoList;
     private List<Matricula> matriculaList;
     private List<Usuario> usuarioList;
+    private Academia academia;
+   
 
     public Aluno() {
     }
@@ -114,6 +116,20 @@ public class Aluno implements Serializable {
 
     public void setUsuarioList(List<Usuario> usuarioList) {
         this.usuarioList = usuarioList;
+    }
+
+    /**
+     * @return the academia
+     */
+    public Academia getAcademia() {
+        return academia;
+    }
+
+    /**
+     * @param academia the academia to set
+     */
+    public void setAcademia(Academia academia) {
+        this.academia = academia;
     }
 
    

@@ -21,18 +21,8 @@ import java.util.List;
 public final class MatriculaSRV {
 
     // Operação 1 - Adiciona, 2 - Atualiza, 3 - remove 
-    public final static int mergeExercicio(Conexao con, OpcaoDAO operacao, int id, Date dataAticacao, Date dt_inativacao, int status, String obs, Academia academia, Aluno aluno) {
+    public final static int mergeExercicio(Conexao con, OpcaoDAO operacao, Matricula matricula) {
         int retorno = 0;
-
-        Matricula matricula = new Matricula();
-
-        matricula.setId(aluno.getId());
-        matricula.setDtMatricula(dataAticacao);
-        matricula.setObservacao(obs);
-        matricula.setStatus(status);
-        matricula.setDtInativacao(dt_inativacao);
-        matricula.setAcademia(academia);
-        matricula.setAluno(aluno);
 
         MatriculaDAO daoMatricula = new MatriculaDAO();
 
@@ -42,13 +32,11 @@ public final class MatriculaSRV {
 
         } else if (operacao == OpcaoDAO.ATUALIZAR) {
 
-            matricula.setId(id);
-            retorno = daoMatricula.atualizar(matricula, con);
+           retorno = daoMatricula.atualizar(matricula, con);
 
         } else if (operacao == OpcaoDAO.REMOVER) {
 
-            matricula.setId(id);
-            retorno = daoMatricula.remover(matricula, con);
+          retorno = daoMatricula.remover(matricula, con);
 
         }
      

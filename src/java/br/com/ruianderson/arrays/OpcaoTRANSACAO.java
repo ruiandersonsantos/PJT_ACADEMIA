@@ -9,13 +9,13 @@ package br.com.ruianderson.arrays;
  *
  * @author Rui
  */
-public enum OpcaoDAO {
+public enum OpcaoTRANSACAO {
     
-    ADICIONAR(1), ATUALIZAR(2), REMOVER(3);
+     COM_TRANSACAO(1), SEM_TRANSACAO(2);
     
     private final int valor; 
     
-    OpcaoDAO(int valorOpcao){ 
+    OpcaoTRANSACAO(int valorOpcao){ 
         
         valor = valorOpcao; 
     } 
@@ -23,5 +23,7 @@ public enum OpcaoDAO {
     public int getValor(){ 
         return valor; 
     }
+
+
     
 }

@@ -19,17 +19,10 @@ import java.util.List;
 public final class ProfessorSRV {
 
     // Operação 1 - Adiciona, 2 - Atualiza, 3 - remove 
-    public final static int mergeProfessor(Conexao con, OpcaoDAO operacao, int id, String nome, String email, String celular, Academia academia) {
+    public final static int mergeProfessor(Conexao con, OpcaoDAO operacao, Professor professor) {
         int retorno = 0;
 
-        Professor professor = new Professor();
-
-        professor.setNome(nome);
-        professor.setCelular(celular);
-        professor.setEmail(email);
-        professor.setAcademiaId(academia);
-
-        ProfessorDAO daoProfessor = new ProfessorDAO();
+       ProfessorDAO daoProfessor = new ProfessorDAO();
 
         if (operacao == OpcaoDAO.ADICIONAR) {
 
@@ -37,12 +30,10 @@ public final class ProfessorSRV {
 
         } else if (operacao == OpcaoDAO.ATUALIZAR) {
 
-            professor.setId(id);
             retorno = daoProfessor.atualizar(professor, con);
 
         } else if (operacao == OpcaoDAO.REMOVER) {
 
-            professor.setId(id);
             retorno = daoProfessor.remover(professor, con);
 
         }

@@ -229,7 +229,7 @@ public class DetalheTreinoDAO implements Dao_base<DetalheTreino> {
 
     @Override
     public List<DetalheTreino> buscarPorNome(String nome, int tipoPesquisa, int id_solicitante, Conexao con) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Nao implementado."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void populaDetalheTreino(DetalheTreino detalheTreino, ResultSet result) throws SQLException {
