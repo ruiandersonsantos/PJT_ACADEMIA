@@ -48,7 +48,7 @@ public class NewClass {
 
         //inserteBasico_1();
         //atualizacaoBasica_1(3);
-        removerBasico_1(3);
+        //removerBasico_1(3);
     }
 
     private static void removerBasico_1(int identity) throws NumberFormatException, ClassNotFoundException, SQLException {
