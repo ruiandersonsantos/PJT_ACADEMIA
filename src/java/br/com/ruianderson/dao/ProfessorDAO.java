@@ -32,7 +32,7 @@ public class ProfessorDAO implements Dao_base<Professor> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO professor (nome, email, celular, academia_id) VALUES (?,?,?,?);");
+            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO professor (nome, email, celular, academia_id) VALUES (?,?,?,?);".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setString(1, prof.getNome());
@@ -77,7 +77,7 @@ public class ProfessorDAO implements Dao_base<Professor> {
                     + "nome = ?,"
                     + "email = ?,"
                     + "celular = ?"
-                    + "WHERE ID = ?");
+                    + "WHERE ID = ?".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setString(1, prof.getNome());
@@ -114,7 +114,7 @@ public class ProfessorDAO implements Dao_base<Professor> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM PROFESSOR WHERE ID = ? AND ACADEMIA_ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM PROFESSOR WHERE ID = ? AND ACADEMIA_ID = ?".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, prof.getId());
@@ -149,7 +149,7 @@ public class ProfessorDAO implements Dao_base<Professor> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, NOME, EMAIL,CELULAR, ACADEMIA_ID FROM PROFESSOR WHERE ACADEMIA_ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, NOME, EMAIL,CELULAR, ACADEMIA_ID FROM PROFESSOR WHERE ACADEMIA_ID = ?".toLowerCase());
             ps.setInt(1, id_solicitante);
 
             //Executando o camando no banco
@@ -184,7 +184,7 @@ public class ProfessorDAO implements Dao_base<Professor> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, NOME, EMAIL,CELULAR, ACADEMIA_ID FROM PROFESSOR WHERE ID = ? and ACADEMIA_ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, NOME, EMAIL,CELULAR, ACADEMIA_ID FROM PROFESSOR WHERE ID = ? and ACADEMIA_ID = ?".toLowerCase());
             ps.setInt(1, id);
             ps.setInt(2, id_solicitante);
 
@@ -219,15 +219,15 @@ public class ProfessorDAO implements Dao_base<Professor> {
 
         switch (tipoPesquisa) {
             case 1:
-                sql = "SELECT ID, NOME, EMAIL,CELULAR, ACADEMIA_ID FROM PROFESSOR WHERE NOME like ? '%' AND ACADEMIA_ID = ?";
+                sql = "SELECT ID, NOME, EMAIL,CELULAR, ACADEMIA_ID FROM PROFESSOR WHERE NOME like ? '%' AND ACADEMIA_ID = ?".toLowerCase();
                 break;
 
             case 2:
-                sql = "SELECT ID, NOME, EMAIL,CELULAR, ACADEMIA_ID FROM PROFESSOR WHERE NOME like '%' ? AND ACADEMIA_ID = ?";
+                sql = "SELECT ID, NOME, EMAIL,CELULAR, ACADEMIA_ID FROM PROFESSOR WHERE NOME like '%' ? AND ACADEMIA_ID = ?".toLowerCase();
                 break;
 
             case 3:
-                sql = "SELECT ID, NOME, EMAIL,CELULAR, ACADEMIA_ID FROM PROFESSOR WHERE NOME like '%' ? '%' AND ACADEMIA_ID = ?";
+                sql = "SELECT ID, NOME, EMAIL,CELULAR, ACADEMIA_ID FROM PROFESSOR WHERE NOME like '%' ? '%' AND ACADEMIA_ID = ?".toLowerCase();
                 break;
         }
 

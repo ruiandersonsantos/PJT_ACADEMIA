@@ -21,7 +21,7 @@ import java.util.List;
 public final class MatriculaSRV {
 
     // Operação 1 - Adiciona, 2 - Atualiza, 3 - remove 
-    public final static int mergeExercicio(Conexao con, OpcaoDAO operacao, Matricula matricula) {
+    public final static int mergeMatricula(Conexao con, OpcaoDAO operacao, Matricula matricula) {
         int retorno = 0;
 
         MatriculaDAO daoMatricula = new MatriculaDAO();

@@ -34,9 +34,9 @@ public class DetalheTreinoDAO implements Dao_base<DetalheTreino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO DETALHE_TREINO "
-                    + "(SERIE, REPETICOES, EXERCICIO_ID, DIAS_SEMANA_ID, TREINO_ID, CARGA_INICIAL, ACADEMIA_ID) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?);");
+            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO DETALHE_TREINO ".toLowerCase()
+                    + "(SERIE, REPETICOES, EXERCICIO_ID, DIAS_SEMANA_ID, TREINO_ID, CARGA_INICIAL, ACADEMIA_ID) ".toLowerCase()
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?);".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, detalheTreino.getSerie());
@@ -79,9 +79,9 @@ public class DetalheTreinoDAO implements Dao_base<DetalheTreino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("UPDATE DETALHE_TREINO SET "
-                    + "SERIE = ?, REPETICOES = ?, EXERCICIO_ID = ?, DIAS_SEMANA_ID = ?, TREINO_ID = ?, CARGA_INICIAL = ?  "
-                    + " WHERE ID = ? AND ACADEMIA_ID = ?;");
+            ps = (PreparedStatement) con.getPreparedStatement("UPDATE DETALHE_TREINO SET ".toLowerCase()
+                    + "SERIE = ?, REPETICOES = ?, EXERCICIO_ID = ?, DIAS_SEMANA_ID = ?, TREINO_ID = ?, CARGA_INICIAL = ?  ".toLowerCase()
+                    + " WHERE ID = ? AND ACADEMIA_ID = ?;".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, detalheTreino.getSerie());
@@ -123,7 +123,7 @@ public class DetalheTreinoDAO implements Dao_base<DetalheTreino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM DETALHE_TREINO WHERE ID = ? AND ACADEMIA_ID = ?;");
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM DETALHE_TREINO WHERE ID = ? AND ACADEMIA_ID = ?;".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, detalheTreino.getId());
@@ -159,9 +159,9 @@ public class DetalheTreinoDAO implements Dao_base<DetalheTreino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, SERIE, REPETICOES, EXERCICIO_ID, "
-                    + "DIAS_SEMANA_ID, TREINO_ID, CARGA_INICIAL, ACADEMIA_ID FROM DETALHE_TREINO "
-                   + "WHERE ACADEMIA_ID = ?;");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, SERIE, REPETICOES, EXERCICIO_ID, ".toLowerCase()
+                    + "DIAS_SEMANA_ID, TREINO_ID, CARGA_INICIAL, ACADEMIA_ID FROM DETALHE_TREINO ".toLowerCase()
+                   + "WHERE ACADEMIA_ID = ?;".toLowerCase());
 
             ps.setInt(1, id_solicitante);
 
@@ -198,9 +198,9 @@ public class DetalheTreinoDAO implements Dao_base<DetalheTreino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, SERIE, REPETICOES, EXERCICIO_ID, "
-                    + "DIAS_SEMANA_ID, TREINO_ID, CARGA_INICIAL, ACADEMIA_ID FROM DETALHE_TREINO "
-                   + "WHERE ACADEMIA_ID = ? AND ID = ?;");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, SERIE, REPETICOES, EXERCICIO_ID, ".toLowerCase()
+                    + "DIAS_SEMANA_ID, TREINO_ID, CARGA_INICIAL, ACADEMIA_ID FROM DETALHE_TREINO ".toLowerCase()
+                   + "WHERE ACADEMIA_ID = ? AND ID = ?;".toLowerCase());
 
             ps.setInt(1, id_solicitante);
             ps.setInt(2, id);

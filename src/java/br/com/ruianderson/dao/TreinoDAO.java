@@ -31,7 +31,7 @@ public class TreinoDAO implements Dao_base<Treino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO TREINO (DESCRICAO, OBSERVACAO, OBJETIVO, ACADEMIA_ID) VALUES(?, ?, ?, ?);");
+            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO TREINO (DESCRICAO, OBSERVACAO, OBJETIVO, ACADEMIA_ID) VALUES(?, ?, ?, ?);".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setString(1, treino.getDescricao());
@@ -72,10 +72,10 @@ public class TreinoDAO implements Dao_base<Treino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("UPDATE TREINO SET "
-                    + "DESCRICAO = ?, "
-                    + "OBSERVACAO = ?, "
-                    + "OBJETIVO = ? WHERE ID = ? AND ACADEMIA_ID = ?;");
+            ps = (PreparedStatement) con.getPreparedStatement("UPDATE TREINO SET ".toLowerCase()
+                    + "DESCRICAO = ?, ".toLowerCase()
+                    + "OBSERVACAO = ?, ".toLowerCase()
+                    + "OBJETIVO = ? WHERE ID = ? AND ACADEMIA_ID = ?;".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setString(1, treino.getDescricao());
@@ -112,7 +112,7 @@ public class TreinoDAO implements Dao_base<Treino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM TREINO WHERE ID = ? AND ACADEMIA_ID = ?;");
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM TREINO WHERE ID = ? AND ACADEMIA_ID = ?;".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, treino.getId());
@@ -147,7 +147,7 @@ public class TreinoDAO implements Dao_base<Treino> {
         try {
             // Criando o comonado sql
             ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DESCRICAO, OBSERVACAO, OBJETIVO FROM TREINO "
-                   + "WHERE ACADEMIA_ID = ?;");
+                   + "WHERE ACADEMIA_ID = ?;".toLowerCase());
 
             ps.setInt(1, id_solicitante);
 
@@ -185,7 +185,7 @@ public class TreinoDAO implements Dao_base<Treino> {
         try {
             // Criando o comonado sql
             ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DESCRICAO, OBSERVACAO, OBJETIVO FROM TREINO "
-                  + "WHERE ACADEMIA_ID = ? AND TREINO.ID = ? ;");
+                  + "WHERE ACADEMIA_ID = ? AND TREINO.ID = ? ;".toLowerCase());
 
             ps.setInt(1, id_solicitante);
             ps.setInt(2, id);
@@ -222,17 +222,17 @@ public class TreinoDAO implements Dao_base<Treino> {
          switch (tipoPesquisa) {
             case 1:
                 sql = "SELECT ID, DESCRICAO, OBSERVACAO, OBJETIVO FROM TREINO "
-                    + "WHERE ACADEMIA_ID = ? AND DESCRICAO LIKE ? '%';";
+                    + "WHERE ACADEMIA_ID = ? AND DESCRICAO LIKE ? '%';".toLowerCase();
                 break;
             
             case 2:
                 sql = "SELECT ID, DESCRICAO, OBSERVACAO, OBJETIVO FROM TREINO "
-                    + "WHERE ACADEMIA_ID = ? DESCRICAO LIKE '%' ?;";
+                    + "WHERE ACADEMIA_ID = ? DESCRICAO LIKE '%' ?;".toLowerCase();
                 break;
             
             case 3:
                 sql = "SELECT ID, DESCRICAO, OBSERVACAO, OBJETIVO FROM TREINO "
-                    + "WHERE ACADEMIA_ID = ? AND DESCRICAO LIKE '%' ? '%' ;";
+                    + "WHERE ACADEMIA_ID = ? AND DESCRICAO LIKE '%' ? '%' ;".toLowerCase();
                 break;
         }
 

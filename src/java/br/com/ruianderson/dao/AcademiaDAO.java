@@ -31,7 +31,7 @@ public class AcademiaDAO implements Dao_base<Academia> {
         try {
             // Criando o comonado sql
             ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO academia (razao, cnpj, contato, telefone, email) "
-                    + "VALUES (?,?,?,?,?);");
+                    + "VALUES (?,?,?,?,?);".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setString(1, academia.getRazao());
@@ -77,7 +77,7 @@ public class AcademiaDAO implements Dao_base<Academia> {
                     + "cnpj = ?, "
                     + "contato = ?, "
                     + "telefone = ?, "
-                    + "email = ? WHERE ID = ? ");
+                    + "email = ? WHERE ID = ? ".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setString(1, academia.getRazao());
@@ -114,7 +114,7 @@ public class AcademiaDAO implements Dao_base<Academia> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM ACADEMIA WHERE ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM ACADEMIA WHERE ID = ?".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, academia.getId());
@@ -147,7 +147,7 @@ public class AcademiaDAO implements Dao_base<Academia> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, RAZAO, CNPJ, CONTATO, TELEFONE, EMAIL FROM ACADEMIA");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, RAZAO, CNPJ, CONTATO, TELEFONE, EMAIL FROM ACADEMIA".toLowerCase());
 
             //Executando o camando no banco
             ResultSet result = ps.executeQuery();
@@ -181,7 +181,7 @@ public class AcademiaDAO implements Dao_base<Academia> {
        
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, RAZAO, CNPJ, CONTATO, TELEFONE, EMAIL FROM ACADEMIA WHERE ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, RAZAO, CNPJ, CONTATO, TELEFONE, EMAIL FROM ACADEMIA WHERE ID = ?".toLowerCase());
             ps.setInt(1, id);
 
             //Executando o camando no banco
@@ -215,15 +215,15 @@ public class AcademiaDAO implements Dao_base<Academia> {
 
         switch (tipoPesquisa) {
             case 1:
-                sql = "SELECT ID, RAZAO, CNPJ, CONTATO, TELEFONE, EMAIL FROM ACADEMIA WHERE RAZAO LIKE ? '%'";
+                sql = "SELECT ID, RAZAO, CNPJ, CONTATO, TELEFONE, EMAIL FROM ACADEMIA WHERE RAZAO LIKE ? '%'".toLowerCase();
                 break;
 
             case 2:
-                sql = "SELECT ID, RAZAO, CNPJ, CONTATO, TELEFONE, EMAIL FROM ACADEMIA WHERE RAZAO LIKE '%' ?";
+                sql = "SELECT ID, RAZAO, CNPJ, CONTATO, TELEFONE, EMAIL FROM ACADEMIA WHERE RAZAO LIKE '%' ?".toLowerCase();
                 break;
 
             case 3:
-                sql = "SELECT ID, RAZAO, CNPJ, CONTATO, TELEFONE, EMAIL FROM ACADEMIA WHERE RAZAO LIKE '%' ? '%'";
+                sql = "SELECT ID, RAZAO, CNPJ, CONTATO, TELEFONE, EMAIL FROM ACADEMIA WHERE RAZAO LIKE '%' ? '%'".toLowerCase();
                 break;
         }
 

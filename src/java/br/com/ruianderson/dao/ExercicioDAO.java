@@ -32,7 +32,7 @@ public class ExercicioDAO implements Dao_base<Exercicio> {
         try {
             // Criando o comonado sql
             ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO exercicio (descricao,apelido,academia_id) "
-                    + "VALUES (?,?,?);");
+                    + "VALUES (?,?,?);".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setString(1, objt.getDescricao());
@@ -75,7 +75,7 @@ public class ExercicioDAO implements Dao_base<Exercicio> {
                     + "descricao = ?,"
                     + "apelido = ?,"
                     + "academia_id = ?"
-                    + " WHERE ID = ? AND ACADEMIA_ID = ? ");
+                    + " WHERE ID = ? AND ACADEMIA_ID = ? ".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setString(1, objt.getDescricao());
@@ -114,7 +114,7 @@ public class ExercicioDAO implements Dao_base<Exercicio> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM EXERCICIO WHERE ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM EXERCICIO WHERE ID = ?".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, objt.getId());
@@ -147,7 +147,7 @@ public class ExercicioDAO implements Dao_base<Exercicio> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DESCRICAO, APELIDO, ACADEMIA_ID FROM EXERCICIO WHERE ACADEMIA_ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DESCRICAO, APELIDO, ACADEMIA_ID FROM EXERCICIO WHERE ACADEMIA_ID = ?".toLowerCase());
             ps.setInt(1, id_academia);
 
             //Executando o camando no banco
@@ -182,7 +182,7 @@ public class ExercicioDAO implements Dao_base<Exercicio> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DESCRICAO, APELIDO, ACADEMIA_ID FROM EXERCICIO WHERE ID = ? and ACADEMIA_ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DESCRICAO, APELIDO, ACADEMIA_ID FROM EXERCICIO WHERE ID = ? and ACADEMIA_ID = ?".toLowerCase());
             ps.setInt(1, id);
             ps.setInt(2, id_academia);
 
@@ -216,15 +216,15 @@ public class ExercicioDAO implements Dao_base<Exercicio> {
 
         switch (tipoPesquisa) {
             case 1:
-                sql = "SELECT ID, DESCRICAO, APELIDO, ACADEMIA_ID FROM EXERCICIO WHERE APELIDO like ? '%' AND ACADEMIA_ID = ?";
+                sql = "SELECT ID, DESCRICAO, APELIDO, ACADEMIA_ID FROM EXERCICIO WHERE APELIDO like ? '%' AND ACADEMIA_ID = ?".toLowerCase();
                 break;
 
             case 2:
-                sql = "SELECT ID, DESCRICAO, APELIDO, ACADEMIA_ID FROM EXERCICIO WHERE APELIDO like '%' ? AND ACADEMIA_ID = ?";
+                sql = "SELECT ID, DESCRICAO, APELIDO, ACADEMIA_ID FROM EXERCICIO WHERE APELIDO like '%' ? AND ACADEMIA_ID = ?".toLowerCase();
                 break;
 
             case 3:
-                sql = "SELECT ID, DESCRICAO, APELIDO, ACADEMIA_ID FROM EXERCICIO WHERE APELIDO like '%' ? '%' AND ACADEMIA_ID = ?";
+                sql = "SELECT ID, DESCRICAO, APELIDO, ACADEMIA_ID FROM EXERCICIO WHERE APELIDO like '%' ? '%' AND ACADEMIA_ID = ?".toLowerCase();
                 break;
         }
 

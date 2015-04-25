@@ -9,9 +9,11 @@ import br.com.ruianderson.dbutil.Conexao;
 import br.com.ruianderson.interfaces.Dao_base;
 import br.com.ruianderson.model.Aluno;
 import br.com.ruianderson.utilitarios.Obj_gen;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,7 +42,10 @@ public class AlunoDAO implements Dao_base<Aluno> {
             ps.setString(2, aluno.getCelular());
             ps.setString(3, aluno.getTelefone());
             ps.setString(4, aluno.getSexo());
-            ps.setString(5, String.valueOf(aluno.getDtNascimento()));
+            
+            String dataok = Obj_gen.convertStringToDate(aluno.getDtNascimento());
+           
+            ps.setDate(5, Obj_gen.convertStringToSqlDate(dataok));
             ps.setString(6, aluno.getEmail());
             ps.setInt(7, aluno.getAcademia().getId());
 
@@ -63,7 +68,7 @@ public class AlunoDAO implements Dao_base<Aluno> {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
 
         return var_retorno;
     }
@@ -91,7 +96,12 @@ public class AlunoDAO implements Dao_base<Aluno> {
             ps.setString(2, aluno.getCelular());
             ps.setString(3, aluno.getTelefone());
             ps.setString(4, aluno.getSexo());
-            ps.setString(5, String.valueOf(aluno.getDtNascimento()));
+            
+            String dataok = Obj_gen.convertStringToDate(aluno.getDtNascimento());
+           
+            ps.setDate(5, Obj_gen.convertStringToSqlDate(dataok));
+            
+            //ps.setString(5, String.valueOf(aluno.getDtNascimento()));
             ps.setString(6, aluno.getEmail());
             ps.setInt(7, aluno.getId());
 
@@ -125,7 +135,7 @@ public class AlunoDAO implements Dao_base<Aluno> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM ALUNO WHERE ID = ? AND ACADEMIA_ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM aluno WHERE ID = ? AND ACADEMIA_ID = ?");
 
             // Passando os parametros para o comando
             ps.setInt(1, aluno.getId());
@@ -152,8 +162,46 @@ public class AlunoDAO implements Dao_base<Aluno> {
     }
 
     @Override
-    public List listarTodos(int id_, Conexao con) {
-        return null;
+    public List listarTodos(int id, Conexao con) {
+        
+         List<Aluno> lista = new LinkedList<>();
+
+        String sql = "";
+
+        sql = "SELECT ID, NOME, CELULAR, TELEFONE, SEXO, DT_NASCIMENTO, EMAIL FROM aluno WHERE ACADEMIA_ID = ?";
+        
+
+        PreparedStatement ps;
+
+        try {
+            // Criando o comonado sql
+            ps = (PreparedStatement) con.getPreparedStatement(sql);
+            ps.setInt(1, id);
+
+            //Executando o camando no banco
+            ResultSet result = ps.executeQuery();
+
+            while (result.next()) {
+
+                Aluno novoaluno = new Aluno();
+                populaAluno(novoaluno, result);
+                lista.add(novoaluno);
+
+            }
+            // fechando conexão
+            ps.close();
+            result.close();
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return lista;
+        
     }
 
     @Override
@@ -164,7 +212,7 @@ public class AlunoDAO implements Dao_base<Aluno> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, NOME, CELULAR, TELEFONE, SEXO, DT_NASCIMENTO, EMAIL FROM ALUNO WHERE ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, NOME, CELULAR, TELEFONE, SEXO, DT_NASCIMENTO, EMAIL FROM aluno WHERE ID = ?");
             ps.setInt(1, id);
 
             //Executando o camando no banco
@@ -184,6 +232,8 @@ public class AlunoDAO implements Dao_base<Aluno> {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return retorno;
@@ -198,15 +248,15 @@ public class AlunoDAO implements Dao_base<Aluno> {
 
         switch (tipoPesquisa) {
             case 1:
-                sql = "SELECT ID, NOME, CELULAR, TELEFONE, SEXO, DT_NASCIMENTO, EMAIL FROM ALUNO WHERE NOME like ? '%'";
+                sql = "SELECT ID, NOME, CELULAR, TELEFONE, SEXO, DT_NASCIMENTO, EMAIL FROM aluno WHERE NOME like ? '%'";
                 break;
 
             case 2:
-                sql = "SELECT ID, NOME, CELULAR, TELEFONE, SEXO, DT_NASCIMENTO, EMAIL FROM ALUNO WHERE NOME like '%' ?";
+                sql = "SELECT ID, NOME, CELULAR, TELEFONE, SEXO, DT_NASCIMENTO, EMAIL FROM aluno WHERE NOME like '%' ?";
                 break;
 
             case 3:
-                sql = "SELECT ID, NOME, CELULAR, TELEFONE, SEXO, DT_NASCIMENTO, EMAIL FROM ALUNO WHERE NOME like '%' ? '%'";
+                sql = "SELECT ID, NOME, CELULAR, TELEFONE, SEXO, DT_NASCIMENTO, EMAIL FROM aluno WHERE NOME like '%' ? '%'";
                 break;
         }
 
@@ -235,20 +285,23 @@ public class AlunoDAO implements Dao_base<Aluno> {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return lista;
 
     }
 
-    private void populaAluno(Aluno aluno, ResultSet result) throws SQLException {
+    private void populaAluno(Aluno aluno, ResultSet result) throws SQLException, ParseException {
 
         aluno.setId(result.getInt("ID"));
         aluno.setNome(result.getString("NOME"));
         aluno.setCelular(result.getString("CELULAR"));
         aluno.setTelefone(result.getString("TELEFONE"));
         aluno.setSexo(result.getString("SEXO"));
-        aluno.setDtNascimento(Obj_gen.convertStringToSqlDate(result.getString("DT_NASCIMENTO")));
+        String data = result.getString("DT_NASCIMENTO");
+        aluno.setDtNascimento(Obj_gen.bancoConvertStringToSqlDate(data));
         aluno.setEmail(result.getString("EMAIL"));
 
     }

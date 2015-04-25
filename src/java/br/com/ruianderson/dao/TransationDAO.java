@@ -23,7 +23,7 @@ public class TransationDAO extends Conexao {
         int retorno = 0;
 
         try {
-            PreparedStatement ps = (PreparedStatement) getPreparedStatement("START TRANSACTION");
+            PreparedStatement ps = (PreparedStatement) getPreparedStatement("START TRANSACTION".toLowerCase());
             retorno = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(TransationDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -35,6 +35,7 @@ import br.com.ruianderson.servicos.TransationSRV;
 import br.com.ruianderson.servicos.TreinoSRV;
 import br.com.ruianderson.utilitarios.Obj_gen;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,11 +45,11 @@ import java.util.List;
  */
 public class NewClass {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, NumberFormatException, ParseException {
 
-        //inserteBasico_1();
+        inserteBasico_1();
         //atualizacaoBasica_1(3);
-        //removerBasico_1(3);
+        //removerBasico_1(1);
     }
 
     private static void removerBasico_1(int identity) throws NumberFormatException, ClassNotFoundException, SQLException {
@@ -63,7 +64,7 @@ public class NewClass {
         id_academia = removeAcademia(identity);
     }
 
-    private static void atualizacaoBasica_1(int identity) throws SQLException, ClassNotFoundException, NumberFormatException {
+    private static void atualizacaoBasica_1(int identity) throws SQLException, ClassNotFoundException, NumberFormatException, ParseException {
         //inserteBasico_1();
         int id_academia = 0;
 
@@ -76,7 +77,7 @@ public class NewClass {
         atualizaTreino(id_academia, identity);
     }
 
-    private static void inserteBasico_1() throws SQLException, NumberFormatException, ClassNotFoundException {
+    private static void inserteBasico_1() throws SQLException, NumberFormatException, ClassNotFoundException, ParseException {
 
         int acadmia_id = 0;
 
@@ -151,7 +152,7 @@ public class NewClass {
         }
     }
 
-    private static void insereAluno(int acadmia_id) throws ClassNotFoundException, SQLException {
+    private static void insereAluno(int acadmia_id) throws ClassNotFoundException, SQLException, ParseException {
         Aluno aluno = new Aluno();
         aluno.setCelular("88776655");
         aluno.setDtNascimento(Obj_gen.convertStringToSqlDate("08/11/1975"));
@@ -194,12 +195,12 @@ public class NewClass {
                 matricula.setId(id_aluno);
                 matricula.setAcademia(new Academia(acadmia_id));
                 matricula.setAluno(new Aluno(id_aluno));
-                matricula.setDtMatricula(Obj_gen.convertStringToSqlDate("09/04/2015"));
+                matricula.setDtMatricula(Obj_gen.convertStringToSqlDate("2015/04/24"));
                 matricula.setObservacao("Teste de inserte geral");
                 matricula.setStatus(OpcaoSTATUS.ATIVO.getValor());
 
                 int id_matricula = 0;
-                id_matricula = MatriculaSRV.mergeExercicio(conect, OpcaoDAO.ADICIONAR, matricula);
+                id_matricula = MatriculaSRV.mergeMatricula(conect, OpcaoDAO.ADICIONAR, matricula);
 
                 if (id_matricula > 0) {
                     System.out.println("Matricula adicionada com sucesso.");
@@ -311,7 +312,7 @@ public class NewClass {
 
     }
 
-    private static void atualizaAluno(int acadmia_id, int id_aluno) throws ClassNotFoundException, SQLException {
+    private static void atualizaAluno(int acadmia_id, int id_aluno) throws ClassNotFoundException, SQLException, ParseException {
         Aluno aluno = new Aluno();
         aluno.setId(id_aluno);
         aluno.setCelular("88776655");
@@ -359,7 +360,7 @@ public class NewClass {
                 matricula.setStatus(OpcaoSTATUS.ATIVO.getValor());
 
                 int id_matricula = 0;
-                id_matricula = MatriculaSRV.mergeExercicio(conect, OpcaoDAO.ATUALIZAR, matricula);
+                id_matricula = MatriculaSRV.mergeMatricula(conect, OpcaoDAO.ATUALIZAR, matricula);
 
                 if (id_matricula > 0) {
                     System.out.println("Matricula atualizada com sucesso.");
@@ -499,7 +500,7 @@ public class NewClass {
 
         Conexao conect = TransationSRV.begin(OpcaoTRANSACAO.COM_TRANSACAO);
 
-        int id_matricula = MatriculaSRV.mergeExercicio(conect, OpcaoDAO.REMOVER, matricula);
+        int id_matricula = MatriculaSRV.mergeMatricula(conect, OpcaoDAO.REMOVER, matricula);
 
         if (id_matricula > 0) {
 

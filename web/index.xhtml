@@ -11,32 +11,104 @@
 
         <h1>Cadastro de Alunos</h1>
 
-        <h:form>
+        <h:form id="frm-aluno">
+            <p:messages id="msg" />
 
-
-            <p:toolbar>
+            <p:toolbar id="aluno-toolbar">
                 <f:facet name="left">
                     <p:commandButton value="Novo" icon="ui-icon-document"
-                                     process="@this"
+                                     process="@this" update="aluno-dialog"
                                      action="#{AlunoBean.preparaNovoCadastro()}"
-                                     oncomplete="PF('edicaoAlunoDialog').show()"/>
+                                     disabled="#{AlunoBean.alunoSelecionado != null}"
+                                     oncomplete="PF('edicaoAlunoDialog').show()">
+                        <p:resetInput target="aluno-dialog"/>
+
+                    </p:commandButton>
 
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
 
-                    <p:commandButton icon="ui-icon-pencil" title="Editar" />
+                    <p:commandButton icon="ui-icon-pencil" title="Editar" 
+                                     disabled="#{AlunoBean.alunoSelecionado == null}"
+                                     process="@this" update="aluno-dialog"
+                                     oncomplete="PF('edicaoAlunoDialog').show()">
+                        <p:resetInput target="aluno-dialog"/>
 
-                    <p:commandButton icon="ui-icon-trash" title="Excluir" />
+                        <f:setPropertyActionListener value="#{AlunoBean.alunoSelecionado}" 
+                                                     target="#{AlunoBean.aluno}"/>
 
-                    <p:commandButton icon="ui-icon-arrowthick-1-s" title="Exportar para XLS" />
+
+
+                    </p:commandButton>
+
+                    <p:commandButton icon="ui-icon-trash" title="Excluir"
+                                     process="@this" update="aluno-table msg aluno-toolbar"
+                                     action="#{AlunoBean.excluir()}"
+                                     disabled="#{AlunoBean.alunoSelecionado == null}">
+                        <p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+                                   message="Tem certeza que deseja excluir o aluno?" />
+
+                    </p:commandButton>
+
+                    <p:commandButton icon="ui-icon-arrowthick-1-s" title="Exportar para XLS"
+                                     ajax="false" immediate="true">
+                        <p:dataExporter type="xls" target="aluno-table" fileName="alunos" />
+
+                    </p:commandButton>
                 </f:facet>
             </p:toolbar>
+
+            <f:metadata>
+                <f:viewAction action="#{AlunoBean.consutarAlunos()}" />
+            </f:metadata>
+
+            <p:dataTable value="#{AlunoBean.todosAlunos}" var="aluno"
+                         emptyMessage="Nenhum aluno cadastrado." rows="10" 
+                         paginator="true" paginatorPosition="bottom"
+                         id="aluno-table"
+                         style="margin-top: 10px"
+                         selection="#{AlunoBean.alunoSelecionado}"
+                         selectionMode="single"
+                         rowKey="#{aluno.id}">
+
+                <p:ajax event="rowSelect" update=":frm-aluno:aluno-toolbar"/>
+                <p:ajax event="rowUnselect" update=":frm-aluno:aluno-toolbar"/>
+
+                <p:column headerText="Matricula" width="50" sortBy="#{aluno.id}">
+                    <h:outputText value="#{aluno.id}" />
+                </p:column>
+                <p:column headerText="Nome" width="250" sortBy="#{aluno.nome}">
+                    <h:outputText value="#{aluno.nome}" />
+                </p:column>
+                <p:column headerText="E-mail" width="180">
+                    <h:outputText value="#{aluno.email}" />
+                </p:column>
+                <p:column headerText="Telefone" width="110">
+                    <h:outputText value="#{aluno.telefone}" />
+                </p:column>
+                <p:column headerText="Celular" width="110">
+                    <h:outputText value="#{aluno.celular}" />
+                </p:column>
+                <p:column headerText="Nascimento" width="110">
+                    <h:outputText value="#{aluno.dtNascimento}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                    </h:outputText>
+
+                </p:column>
+
+            </p:dataTable>
+
+
 
             <p:dialog header="Novo aluno" widgetVar="edicaoAlunoDialog" id="aluno-dialog"
                       resizable="false" modal="true" closeOnEscape="true">
 
-                <h:panelGrid columns="2">
+                <p:defaultCommand target="salvar-button" scope="aluno-dialog"/>
+
+                <p:messages id="msgs-dialog" />
+
+                <h:panelGrid columns="2" id="aluno-painel">
 
                     <p:outputLabel value="Nome:" for="nome-aluno"/>
                     <p:inputText id="nome-aluno" size="60" maxlength="80" value="#{AlunoBean.aluno.nome}"/>
@@ -45,10 +117,11 @@
                     <p:inputText id="email-aluno" size="60" maxlength="80" value="#{AlunoBean.aluno.email}"/>
 
                     <p:outputLabel value="Celular" for="celular-aluno"/>
-                    <p:inputText id="celular-aluno" size="30" maxlength="10" value="#{AlunoBean.aluno.email}"/>
+                    <p:inputMask mask="(99)9999-9999" id="celular-aluno" size="30" maxlength="10" value="#{AlunoBean.aluno.celular}"/>
 
                     <p:outputLabel value="Telefone" for="telefone-aluno"/>
-                    <p:inputText id="telefone-aluno" size="30" maxlength="10" value="#{AlunoBean.aluno.email}"/>
+                    <p:inputMask mask="(99)9999-9999" id="telefone-aluno" 
+                                 size="30" maxlength="10" value="#{AlunoBean.aluno.telefone}"/>
 
                     <p:outputLabel value="Sexo" for="sexo" />
                     <p:selectOneMenu id="sexo" value="#{AlunoBean.aluno.sexo}">
@@ -58,24 +131,26 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Nascimento" for="data-nascimento" />
-                    <p:inputText id="data-nascimento" size="10" maxlength="10"
-                                 value="#{AlunoBean.aluno.dtNascimento}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </p:inputText>
+                    <p:calendar id="data-nascimento" mask="99/99/9999"
+                                value="#{AlunoBean.aluno.dtNascimento}"
+                                pattern="dd/MM/yyyy"/>
 
-                    <p:outputLabel value="Observações" for="observacao-aluno"/>
-                    <p:inputTextarea id="observacao-aluno" 
+
+                    <p:outputLabel value="Observações" for="observacao-aluno"
+                                   rendered="#{AlunoBean.alunoSelecionado == null}"/>
+                    <p:inputTextarea id="observacao-aluno"
+                                     rendered="#{AlunoBean.alunoSelecionado == null}"
                                      rows="6" cols="60" counter="display"
                                      counterTemplate="{0} caracteres restantes."
                                      autoResize="false" maxlength="300" value="#{AlunoBean.matricula.observacao}"/>
-                    <p:outputLabel/>
+                    <p:outputLabel rendered="#{AlunoBean.alunoSelecionado == null}"/>
                     <h:outputText id="display" />
 
-                    
+
                     <p:commandButton value="Salvar" id="salvar-button"
                                      action="#{AlunoBean.salvar}"
-                                     process="aluno-dialog" 
-                                     oncomplete="PF('edicaoAlunoDialog').hide()" />
+                                     process="aluno-dialog" update="msgs-dialog aluno-painel"
+                                     oncomplete="if (!args.validationFailed) PF('edicaoAlunoDialog').hide()" />
 
 
 

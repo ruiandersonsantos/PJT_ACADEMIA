@@ -36,7 +36,7 @@ public class HistoricoTreinoDAO implements Dao_base<HistoricoTreino> {
             // Criando o comonado sql
             ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO historico_treino "
                     + "(DT_ATIVACAO, STATUS, OBSERVACAO, MATRICULA_ID, TREINO_ID, AVALIACAO_ID, PROFESSOR_ID, ACADEMIA_ID) "
-                    + "VALUES (?,?,?,?,?,?,?,?);");
+                    + "VALUES (?,?,?,?,?,?,?,?);".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setDate(1, (Date) objt.getDtAtivacao());
@@ -82,7 +82,7 @@ public class HistoricoTreinoDAO implements Dao_base<HistoricoTreino> {
         try {
             // Criando o comonado sql
             ps = (PreparedStatement) con.getPreparedStatement("UPDATE historico_treino SET "
-                    + " DT_FINALIZACAO ?, STATUS = ?, OBSERVACAO = ? WHERE ID = ? AND ACADEMIA_ID = ?");
+                    + " DT_FINALIZACAO ?, STATUS = ?, OBSERVACAO = ? WHERE ID = ? AND ACADEMIA_ID = ?".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setDate(1, (Date) objt.getDtFinalizacao());
@@ -120,7 +120,7 @@ public class HistoricoTreinoDAO implements Dao_base<HistoricoTreino> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM historico_treino WHERE ID = ? AND ACADEMIA_ID = ? and DT_FINALIZACAO IS NULL;");
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM historico_treino WHERE ID = ? AND ACADEMIA_ID = ? and DT_FINALIZACAO IS NULL;".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, objt.getId());
@@ -159,7 +159,7 @@ public class HistoricoTreinoDAO implements Dao_base<HistoricoTreino> {
         try {
             // Criando o comonado sql
             ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DT_ATIVACAO, DT_FINALIZACAO, STATUS, OBSERVACAO FROM historico_treino "
-                    + "WHERE ACADEMIA_ID = ? AND MATRICULA_ID = ?;");
+                    + "WHERE ACADEMIA_ID = ? AND MATRICULA_ID = ?;".toLowerCase());
 
             ps.setInt(1, id_solicitante);
             ps.setInt(2, matricula.getId());

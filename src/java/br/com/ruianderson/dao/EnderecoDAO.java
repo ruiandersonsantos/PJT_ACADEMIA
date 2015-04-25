@@ -32,9 +32,9 @@ public class EnderecoDAO implements Dao_base<Endereco> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO ENDERECO "
-                    + "(LOGRADOURO, BAIRRO, NUMERO, COMPLEMENTO, CEP, PAR, ACADEMIA_ID, ALUNO_ID, CIDADE_ID) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?);");
+            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO ENDERECO ".toLowerCase()
+                    + "(LOGRADOURO, BAIRRO, NUMERO, COMPLEMENTO, CEP, PAR, ACADEMIA_ID, ALUNO_ID, CIDADE_ID) ".toLowerCase()
+                    + "VALUES (?,?,?,?,?,?,?,?,?);".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setString(1, endereco.getLogradouro());
@@ -88,7 +88,7 @@ public class EnderecoDAO implements Dao_base<Endereco> {
                     + "PAR = ?, "
                     + "ACADEMIA_ID = ?, "
                     + "ALUNO_ID = ?, "
-                    + "CIDADE_ID = ? WHERE ALUNO_ID = ? ");
+                    + "CIDADE_ID = ? WHERE ALUNO_ID = ? ".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setString(1, endereco.getLogradouro());
@@ -130,7 +130,7 @@ public class EnderecoDAO implements Dao_base<Endereco> {
         
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM ENDERECO WHERE ALUNO_ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("DELETE FROM ENDERECO WHERE ALUNO_ID = ?".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, endereco.getAlunoId().getId());
@@ -170,7 +170,7 @@ public class EnderecoDAO implements Dao_base<Endereco> {
             // Criando o comonado sql
             ps = (PreparedStatement) con.getPreparedStatement("SELECT  ID, LOGRADOURO, "
                     + "BAIRRO, NUMERO, COMPLEMENTO, CEP, PAR, ACADEMIA_ID, ALUNO_ID, CIDADE_ID "
-                    + "FROM ENDERECO WHERE ALUNO_ID = ? AND ACADEMIA_ID = ?");
+                    + "FROM ENDERECO WHERE ALUNO_ID = ? AND ACADEMIA_ID = ?".toLowerCase());
 
             ps.setInt(1, id_aluno);
             ps.setInt(2, id_solicitante);

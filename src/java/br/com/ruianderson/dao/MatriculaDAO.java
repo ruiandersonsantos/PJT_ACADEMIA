@@ -34,8 +34,8 @@ public class MatriculaDAO implements Dao_base<Matricula> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO MATRICULA (ID, DT_MATRICULA, STATUS, OBSERVACAO, ACADEMIA_ID, ALUNO_ID) "
-                    + "VALUES (?,?,?,?,?,?);");
+            ps = (PreparedStatement) con.getPreparedStatement("INSERT INTO MATRICULA (ID, DT_MATRICULA, STATUS, OBSERVACAO, ACADEMIA_ID, ALUNO_ID) ".toLowerCase()
+                    + "VALUES (?,?,?,?,?,?);".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, matricula.getId());
@@ -80,7 +80,7 @@ public class MatriculaDAO implements Dao_base<Matricula> {
                     + "dt_inativacao = ?,"
                     + "status = ?,"
                     + " observacao = ?"
-                    + " WHERE ID = ? and ACADEMIA_ID = ? ");
+                    + " WHERE ID = ? and ACADEMIA_ID = ? ".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setDate(1, (Date) matricula.getDtInativacao());
@@ -117,7 +117,7 @@ public class MatriculaDAO implements Dao_base<Matricula> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement(" DELETE FROM MATRICULA WHERE ID = ? AND ACADEMIA_ID = ? ");
+            ps = (PreparedStatement) con.getPreparedStatement(" DELETE FROM MATRICULA WHERE ID = ? AND ACADEMIA_ID = ? ".toLowerCase());
 
             // Passando os parametros para o comando
             ps.setInt(1, matricula.getId());
@@ -153,8 +153,8 @@ public class MatriculaDAO implements Dao_base<Matricula> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DT_MATRICULA, DT_INATIVACAO, STATUS, OBSERVACAO, ACADEMIA_ID, ALUNO_ID "
-                    + "FROM MATRICULA WHERE ACADEMIA_ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DT_MATRICULA, DT_INATIVACAO, STATUS, OBSERVACAO, ACADEMIA_ID, ALUNO_ID ".toLowerCase()
+                    + "FROM MATRICULA WHERE ACADEMIA_ID = ?".toLowerCase());
             
             ps.setInt(1, id_solicitante);
 
@@ -190,8 +190,8 @@ public class MatriculaDAO implements Dao_base<Matricula> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DT_MATRICULA, DT_INATIVACAO, STATUS, OBSERVACAO, ACADEMIA_ID, ALUNO_ID "
-                    + "FROM MATRICULA WHERE ACADEMIA_ID = ? AND ID = ?");
+            ps = (PreparedStatement) con.getPreparedStatement("SELECT ID, DT_MATRICULA, DT_INATIVACAO, STATUS, OBSERVACAO, ACADEMIA_ID, ALUNO_ID ".toLowerCase()
+                    + "FROM MATRICULA WHERE ACADEMIA_ID = ? AND ID = ?".toLowerCase());
             ps.setInt(1, id_solicitante);
             ps.setInt(2, id);
 

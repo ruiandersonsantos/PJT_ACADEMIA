@@ -15,61 +15,59 @@ import java.sql.Statement;
  * @author Rui
  */
 public class Conexao {
-    
-    	
-private Connection cx = null;
-     
+
+    private Connection cx = null;
+
     public Connection GetConnection() throws SQLException {
-        
-        if(cx==null){
-        	
-        	try {
-        	
-                    //MySql
-                        Class.forName("com.mysql.jdbc.Driver");
 
-                        cx = DriverManager.getConnection("jdbc:mysql://localhost/academia","root","42301886");
+        if (cx == null) {
 
-                        if(cx != null){
-                              //  System.out.print("Conectou ao mySql");
-                        }
+            try {
 
-                    } catch (ClassNotFoundException e1) {
-                        // TODO Auto-generated catch block
-                        System.out.print("Não Conectou");
-                        System.out.print(e1.getMessage());
-                        e1.printStackTrace();
-                    }
+                //MySql
+                Class.forName("com.mysql.jdbc.Driver");
 
-        	
-            
+                // Conexão local
+                cx = DriverManager.getConnection("jdbc:mysql://localhost/academia","root","42301886");
+                // Conexão remota
+                //cx = DriverManager.getConnection("jdbc:mysql://localhost:3306/ruiand_academia", "ruiand_root", "42301886");
+
+                // Conexão remota testes
+                //cx = DriverManager.getConnection("jdbc:mysql://ruianderson.com.br:3306/ruiand_academia","ruiand_root","42301886");
+                if (cx != null) {
+                    System.out.print("Conectou ao mySql");
+                }
+
+            } catch (ClassNotFoundException e1) {
+                // TODO Auto-generated catch block
+                System.out.print("Não Conectou");
+                System.out.print(e1.getMessage());
+                e1.printStackTrace();
+            }
+
         }
-        
+
         //cx.setAutoCommit(false);
-        
         return cx;
     }
-    
-    public Statement getStatement() throws ClassNotFoundException, ClassNotFoundException, SQLException{
-        
+
+    public Statement getStatement() throws ClassNotFoundException, ClassNotFoundException, SQLException {
+
         return GetConnection().createStatement();
-        
-    }
-    
-     public Statement getPreparedStatement(String sql) throws ClassNotFoundException, ClassNotFoundException, SQLException{
-        
-        return GetConnection().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-        
-    }
-     
-     public void closeAll() throws SQLException{
-         if(cx!=null){
-             cx.close();
-         }
-         
-     }
-    
 
+    }
 
-    
+    public Statement getPreparedStatement(String sql) throws ClassNotFoundException, ClassNotFoundException, SQLException {
+
+        return GetConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+    }
+
+    public void closeAll() throws SQLException {
+        if (cx != null) {
+            cx.close();
+        }
+
+    }
+
 }

@@ -11,6 +11,7 @@ import br.com.ruianderson.dao.AlunoDAO;
 import br.com.ruianderson.dbutil.Conexao;
 import br.com.ruianderson.model.Aluno;
 import br.com.ruianderson.utilitarios.Obj_gen;
+import java.util.List;
 
 /**
  *
@@ -20,7 +21,7 @@ public final class AlunoSRV {
 
     // Operação 1 - Adiciona, 2 - Atualiza, 3 - remove 
     public final static int mergeAluno(Conexao con, OpcaoDAO operacao, Aluno aluno) {
-        
+
         int retorno = 0;
 
         AlunoDAO daoAluno = new AlunoDAO();
@@ -31,7 +32,7 @@ public final class AlunoSRV {
 
         } else if (operacao == OpcaoDAO.ATUALIZAR) {
 
-          retorno = daoAluno.atualizar(aluno, con);
+            retorno = daoAluno.atualizar(aluno, con);
 
         } else if (operacao == OpcaoDAO.REMOVER) {
 
@@ -45,5 +46,10 @@ public final class AlunoSRV {
     public final static Aluno localizarAlunoPorId(Conexao con, int id) {
         AlunoDAO daoAluno = new AlunoDAO();
         return daoAluno.buscarPorId(id, 0, con);
+    }
+
+    public final static List<Aluno> listarAlunos(Conexao con, int id) {
+        AlunoDAO daoAluno = new AlunoDAO();
+        return daoAluno.listarTodos(id, con);
     }
 }

@@ -8,6 +8,9 @@ package br.com.ruianderson.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 /**
@@ -19,11 +22,18 @@ public class Aluno implements Serializable {
     private static final long serialVersionUID = 1L;
    
     private Integer id;
+    @NotEmpty(message = "Nome não pode ser vazio!")
     private String nome;
+    @NotEmpty(message = "Celular não pode ser vazio!")
     private String celular;
+    @NotEmpty(message = "Telefone não pode ser vazio!")
     private String telefone;
+    @NotEmpty(message = "Sexo deve ser selecionado!")
     private String sexo;
+    @NotNull(message = "A data de nascimento deve ser informada!")
     private Date dtNascimento;
+    @Email(message = "Informe um e-mail valido!")
+    @NotEmpty(message = "O E-mail deve ser informado!")
     private String email;
     private List<Endereco> enderecoList;
     private List<Matricula> matriculaList;
