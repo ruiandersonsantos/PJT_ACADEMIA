@@ -25,6 +25,7 @@ public class Endereco implements Serializable {
     private Academia academiaId;
     private Aluno alunoId;
     private Cidade cidadeId;
+    private Integer id_cidade;
 
     public Endereco() {
     }
@@ -111,6 +112,20 @@ public class Endereco implements Serializable {
 
     public void setCidadeId(Cidade cidadeId) {
         this.cidadeId = cidadeId;
+    }
+
+    /**
+     * @return the id_cidade
+     */
+    public Integer getId_cidade() {
+        return id_cidade;
+    }
+
+    /**
+     * @param id_cidade the id_cidade to set
+     */
+    public void setId_cidade(Integer id_cidade) {
+        this.id_cidade = id_cidade;
     }
 
     

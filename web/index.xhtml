@@ -15,6 +15,7 @@
             <p:messages id="msg" />
 
             <p:toolbar id="aluno-toolbar">
+
                 <f:facet name="left">
                     <p:commandButton value="Novo" icon="ui-icon-document"
                                      process="@this" update="aluno-dialog"
@@ -57,6 +58,50 @@
 
                     </p:commandButton>
                 </f:facet>
+
+                <f:facet name="right">
+                     <p:commandButton value="Endereço" icon="ui-icon-contact"
+                                     process="@this" update="endereco-dialog"
+                                     action="#{EnderecoBean.prepararEnderecoAluno()}"
+                                     disabled="#{AlunoBean.alunoSelecionado == null}"
+                                     oncomplete="PF('edicaoEnderecoDialog').show()">
+                        <p:resetInput target="endereco-dialog"/>
+
+                        <f:setPropertyActionListener value="#{AlunoBean.alunoSelecionado}" 
+                                                     target="#{EnderecoBean.alunoSelecionado}"/>
+
+                    </p:commandButton>
+
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+
+                    <p:commandButton value="Treino" icon="ui-icon-clipboard"
+                                     process="@this" update="endereco-dialog"
+                                     action="#{AlunoBean.preparaNovoCadastro()}"
+                                     disabled="#{AlunoBean.alunoSelecionado == null}"
+                                     oncomplete="PF('edicaoAlunoDialog').show()">
+                        <p:resetInput target="endereco-dialog"/>
+
+                    </p:commandButton>
+
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+
+                    <p:commandButton value="Matricula" icon="ui-icon-unlocked"
+                                     process="@this" update="endereco-dialog"
+                                     action="#{AlunoBean.preparaNovoCadastro()}"
+                                     disabled="#{AlunoBean.alunoSelecionado == null}"
+                                     oncomplete="PF('edicaoAlunoDialog').show()">
+                        <p:resetInput target="endereco-dialog"/>
+
+                    </p:commandButton>
+
+
+                </f:facet>
+
+
             </p:toolbar>
 
             <f:metadata>
@@ -157,6 +202,69 @@
                 </h:panelGrid>
 
             </p:dialog>
+
+            <!--inicio do dialogo do endereço -->
+            <p:dialog header="Endereço do aluno" widgetVar="edicaoEnderecoDialog" id="endereco-dialog"
+                      resizable="false" modal="true" closeOnEscape="true">
+                
+                <!--Painel para os campos de entrada --> 
+                <h:panelGrid columns="2" id="endereco-painel">
+
+                    <p:outputLabel value="Aluno:" for="nome-aluno-endereco"/>
+                    <p:inputText id="nome-aluno-endereco" disabled="true" size="60" maxlength="80" 
+                                 value="#{AlunoBean.alunoSelecionado.nome}"/>
+
+                    <p:outputLabel value="Logradouro:" for="endereco-logradouro"/>
+                    <p:inputText id="endereco-logradouro"  size="60" maxlength="90" 
+                                 value="#{EnderecoBean.enderecoEdicao.logradouro}"/>
+
+                    <p:outputLabel value="Numero:" for="endereco-numero"/>
+                    <p:inputText id="endereco-numero"  size="10" maxlength="10" 
+                                 value="#{EnderecoBean.enderecoEdicao.numero}"/>
+
+                    <p:outputLabel value="Bairro:" for="endereco-bairro"/>
+                    <p:inputText id="endereco-bairro"  size="30" maxlength="30" 
+                                 value="#{EnderecoBean.enderecoEdicao.bairro}"/>
+
+
+                    <p:outputLabel value="Complemento" for="endereco-complemento"/>
+                    <p:inputText id="endereco-complemento"  size="30" maxlength="30" 
+                                 value="#{EnderecoBean.enderecoEdicao.complemento}"/>
+
+                    <p:outputLabel value="CEP:" for="endereco-cep"/>
+                    <p:inputMask mask="99999-999" id="endereco-cep"  size="10" maxlength="10" 
+                                 value="#{EnderecoBean.enderecoEdicao.cep}"/>
+                    
+                     <p:outputLabel value="Estado" for="estado" />
+                    <p:selectOneMenu id="estado" >
+                        <f:selectItem itemLabel="RJ" />
+                        
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Cidade" for="cidade" />
+                    <p:selectOneMenu id="cidade" value="#{EnderecoBean.enderecoEdicao.id_cidade}" >
+                        <f:selectItem itemLabel="Selecione" />
+                        <f:selectItems value="#{EnderecoBean.opcaoCidade}" var="cidade"
+                                       itemLabel="#{cidade}" itemValue="#{cidade.valor}" />
+                    </p:selectOneMenu>
+                    
+                    <h:outputText id="display-endereco" />
+
+
+                    <p:commandButton value="Salvar" id="salvar-button-endereco"
+                                     action="#{EnderecoBean.salvarEnderecoAluno()}"
+                                     process="endereco-dialog" 
+                                     oncomplete="if (!args.validationFailed) PF('edicaoEnderecoDialog').hide()" />
+
+
+
+              
+
+                </h:panelGrid>
+            </p:dialog>
+
+
+
         </h:form>
 
 

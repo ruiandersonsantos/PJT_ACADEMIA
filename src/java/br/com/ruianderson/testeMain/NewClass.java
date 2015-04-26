@@ -47,8 +47,8 @@ public class NewClass {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, NumberFormatException, ParseException {
 
-        inserteBasico_1();
-        //atualizacaoBasica_1(3);
+        //inserteBasico_1();
+        //atualizacaoBasica_1(1);
         //removerBasico_1(1);
     }
 

@@ -79,15 +79,15 @@ public class EnderecoDAO implements Dao_base<Endereco> {
 
         try {
             // Criando o comonado sql
-            ps = (PreparedStatement) con.getPreparedStatement("UPDATE ENDERECO SET  "
-                    + "LOGRADOURO = ?, "
-                    + "BAIRRO = ?, "
-                    + "NUMERO = ?, "
-                    + "COMPLEMENTO = ?, "
-                    + "CEP = ?, "
-                    + "PAR = ?, "
-                    + "ACADEMIA_ID = ?, "
-                    + "ALUNO_ID = ?, "
+            ps = (PreparedStatement) con.getPreparedStatement("UPDATE ENDERECO SET  ".toLowerCase()
+                    + "LOGRADOURO = ?, ".toLowerCase()
+                    + "BAIRRO = ?, ".toLowerCase()
+                    + "NUMERO = ?, ".toLowerCase()
+                    + "COMPLEMENTO = ?, ".toLowerCase()
+                    + "CEP = ?, ".toLowerCase()
+                    + "PAR = ?, ".toLowerCase()
+                    + "ACADEMIA_ID = ?, ".toLowerCase()
+                    + "ALUNO_ID = ?, ".toLowerCase()
                     + "CIDADE_ID = ? WHERE ALUNO_ID = ? ".toLowerCase());
 
             // Passando os parametros para o comando
@@ -178,10 +178,12 @@ public class EnderecoDAO implements Dao_base<Endereco> {
             //Executando o camando no banco
             ResultSet result = ps.executeQuery();
 
-            while (result.next()) {
+            if (result.next()) {
 
                 populaEndereco(retorno, result);
 
+            }else{
+                retorno.setId(0);
             }
 
             // fechando conexão
@@ -203,6 +205,7 @@ public class EnderecoDAO implements Dao_base<Endereco> {
     }
 
     private void populaEndereco(Endereco retorno, ResultSet result) throws SQLException {
+        
         retorno.setId(result.getInt("ID"));
         retorno.setLogradouro(result.getString("LOGRADOURO"));
         retorno.setNumero(result.getInt("NUMERO"));

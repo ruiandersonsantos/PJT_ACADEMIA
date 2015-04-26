@@ -138,6 +138,8 @@ public class AlunoBean implements Serializable {
                 RequestContext.getCurrentInstance().update(
                         Arrays.asList("frm-aluno:msg", "frm-aluno:aluno-table"));
             }
+            
+            conect.closeAll();
 
         } else {
 

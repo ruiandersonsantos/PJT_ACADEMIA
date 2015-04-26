@@ -35,13 +35,13 @@ public class Conexao {
                 // Conexão remota testes
                 //cx = DriverManager.getConnection("jdbc:mysql://ruianderson.com.br:3306/ruiand_academia","ruiand_root","42301886");
                 if (cx != null) {
-                    System.out.print("Conectou ao mySql");
+                    System.out.println("Conectou ao mySql");
                 }
 
             } catch (ClassNotFoundException e1) {
                 // TODO Auto-generated catch block
-                System.out.print("Não Conectou");
-                System.out.print(e1.getMessage());
+                System.out.println("Não Conectou");
+                System.out.println(e1.getMessage());
                 e1.printStackTrace();
             }
 
@@ -64,6 +64,7 @@ public class Conexao {
     }
 
     public void closeAll() throws SQLException {
+        System.out.println("Fechou a conexao!");
         if (cx != null) {
             cx.close();
         }

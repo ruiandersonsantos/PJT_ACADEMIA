@@ -42,9 +42,9 @@ public class AlunoDAO implements Dao_base<Aluno> {
             ps.setString(2, aluno.getCelular());
             ps.setString(3, aluno.getTelefone());
             ps.setString(4, aluno.getSexo());
-            
+
             String dataok = Obj_gen.convertStringToDate(aluno.getDtNascimento());
-           
+
             ps.setDate(5, Obj_gen.convertStringToSqlDate(dataok));
             ps.setString(6, aluno.getEmail());
             ps.setInt(7, aluno.getAcademia().getId());
@@ -68,7 +68,7 @@ public class AlunoDAO implements Dao_base<Aluno> {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
 
         return var_retorno;
     }
@@ -96,11 +96,11 @@ public class AlunoDAO implements Dao_base<Aluno> {
             ps.setString(2, aluno.getCelular());
             ps.setString(3, aluno.getTelefone());
             ps.setString(4, aluno.getSexo());
-            
+
             String dataok = Obj_gen.convertStringToDate(aluno.getDtNascimento());
-           
+
             ps.setDate(5, Obj_gen.convertStringToSqlDate(dataok));
-            
+
             //ps.setString(5, String.valueOf(aluno.getDtNascimento()));
             ps.setString(6, aluno.getEmail());
             ps.setInt(7, aluno.getId());
@@ -163,13 +163,12 @@ public class AlunoDAO implements Dao_base<Aluno> {
 
     @Override
     public List listarTodos(int id, Conexao con) {
-        
-         List<Aluno> lista = new LinkedList<>();
+
+        List<Aluno> lista = new LinkedList<>();
 
         String sql = "";
 
         sql = "SELECT ID, NOME, CELULAR, TELEFONE, SEXO, DT_NASCIMENTO, EMAIL FROM aluno WHERE ACADEMIA_ID = ?";
-        
 
         PreparedStatement ps;
 
@@ -200,8 +199,14 @@ public class AlunoDAO implements Dao_base<Aluno> {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        try {
+            con.closeAll();
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return lista;
-        
+
     }
 
     @Override
@@ -233,6 +238,12 @@ public class AlunoDAO implements Dao_base<Aluno> {
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            con.closeAll();
+        } catch (SQLException ex) {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -286,6 +297,12 @@ public class AlunoDAO implements Dao_base<Aluno> {
         } catch (SQLException ex) {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            con.closeAll();
+        } catch (SQLException ex) {
             Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
