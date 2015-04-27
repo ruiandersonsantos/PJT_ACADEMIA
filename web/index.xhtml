@@ -60,7 +60,7 @@
                 </f:facet>
 
                 <f:facet name="right">
-                     <p:commandButton value="Endereço" icon="ui-icon-contact"
+                    <p:commandButton value="Endereço" icon="ui-icon-contact"
                                      process="@this" update="endereco-dialog"
                                      action="#{EnderecoBean.prepararEnderecoAluno()}"
                                      disabled="#{AlunoBean.alunoSelecionado == null}"
@@ -90,11 +90,14 @@
                     </span>
 
                     <p:commandButton value="Matricula" icon="ui-icon-unlocked"
-                                     process="@this" update="endereco-dialog"
-                                     action="#{AlunoBean.preparaNovoCadastro()}"
+                                     process="@this" update="matricula-dialog"
+                                     action="#{MatriculaBean.prepararMatricula()}"
                                      disabled="#{AlunoBean.alunoSelecionado == null}"
-                                     oncomplete="PF('edicaoAlunoDialog').show()">
-                        <p:resetInput target="endereco-dialog"/>
+                                     oncomplete="PF('edicaoMatriculaDialog').show()">
+                        <p:resetInput target="matricula-dialog"/>
+                        
+                        <f:setPropertyActionListener value="#{AlunoBean.alunoSelecionado}" 
+                                                     target="#{MatriculaBean.alunoSelecionado}"/>
 
                     </p:commandButton>
 
@@ -206,7 +209,7 @@
             <!--inicio do dialogo do endereço -->
             <p:dialog header="Endereço do aluno" widgetVar="edicaoEnderecoDialog" id="endereco-dialog"
                       resizable="false" modal="true" closeOnEscape="true">
-                
+
                 <!--Painel para os campos de entrada --> 
                 <h:panelGrid columns="2" id="endereco-painel">
 
@@ -234,11 +237,11 @@
                     <p:outputLabel value="CEP:" for="endereco-cep"/>
                     <p:inputMask mask="99999-999" id="endereco-cep"  size="10" maxlength="10" 
                                  value="#{EnderecoBean.enderecoEdicao.cep}"/>
-                    
-                     <p:outputLabel value="Estado" for="estado" />
+
+                    <p:outputLabel value="Estado" for="estado" />
                     <p:selectOneMenu id="estado" >
                         <f:selectItem itemLabel="RJ" />
-                        
+
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Cidade" for="cidade" />
@@ -247,7 +250,7 @@
                         <f:selectItems value="#{EnderecoBean.opcaoCidade}" var="cidade"
                                        itemLabel="#{cidade}" itemValue="#{cidade.valor}" />
                     </p:selectOneMenu>
-                    
+
                     <h:outputText id="display-endereco" />
 
 
@@ -258,9 +261,44 @@
 
 
 
-              
+
 
                 </h:panelGrid>
+            </p:dialog>
+
+            <!--inicio do dialogo da Matricula -->
+            <p:dialog header="Dados da matricula de #{MatriculaBean.alunoSelecionado.nome}" widgetVar="edicaoMatriculaDialog" id="matricula-dialog"
+                      resizable="false" modal="true" closeOnEscape="true">
+                <!--Painel para os campos de entrada --> 
+                <h:panelGrid columns="2" id="matricula-painel">
+
+                    <p:outputLabel value="Data Matricula" for="data-matricula" />
+                    <p:calendar id="data-matricula" mask="99/99/9999" disabled="true"
+                                value="#{MatriculaBean.matricula.dtMatricula}"
+                                pattern="dd/MM/yyyy"/>
+
+                    <p:outputLabel value="Inativação da Matricula" for="inativa-matricula" />
+                    <p:calendar id="inativa-matricula" mask="99/99/9999"
+                                value="#{MatriculaBean.matricula.dtInativacao}"
+                                pattern="dd/MM/yyyy"/>
+
+                    <p:outputLabel value="Status" for="status" />
+                    <p:selectOneMenu id="status" value="#{MatriculaBean.matricula.status}" >
+                        <f:selectItem itemLabel="Selecione" />
+                        <f:selectItems value="#{MatriculaBean.opcaStatus}" var="status"
+                                       itemLabel="#{status}" itemValue="#{status.valor}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Observações" for="observacao-matricula"/>
+                    <p:inputTextarea id="observacao-matricula"
+                                     rows="6" cols="60" counter="display"
+                                     counterTemplate="{0} caracteres restantes."
+                                     autoResize="false" maxlength="300" value="#{MatriculaBean.matricula.observacao}"/>
+
+
+
+                </h:panelGrid>
+
             </p:dialog>
 
 

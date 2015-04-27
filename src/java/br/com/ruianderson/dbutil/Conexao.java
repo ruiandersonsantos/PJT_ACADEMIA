@@ -5,6 +5,7 @@
  */
 package br.com.ruianderson.dbutil;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,7 +15,9 @@ import java.sql.Statement;
  *
  * @author Rui
  */
-public class Conexao {
+public class Conexao implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
 
     private Connection cx = null;
 

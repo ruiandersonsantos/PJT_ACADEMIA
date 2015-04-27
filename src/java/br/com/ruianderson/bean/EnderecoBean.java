@@ -30,7 +30,7 @@ import br.com.ruianderson.utilitarios.FacesMessages;
  */
 @ManagedBean(name = "EnderecoBean")
 @SessionScoped
-public class EnderecoBean implements Serializable {
+public class EnderecoBean {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,16 +45,16 @@ public class EnderecoBean implements Serializable {
 
         alunoSelecionado = new Aluno();
         messages = new FacesMessages();
+        endrecoBanco = new Endereco();
+        enderecoEdicao = new Endereco();
+        enderecoEdicao.setId(0);
 
     }
 
     public void prepararEnderecoAluno() throws ClassNotFoundException, SQLException {
 
-        enderecoEdicao = new Endereco();
-
         conect = TransationSRV.begin(OpcaoTRANSACAO.SEM_TRANSACAO);
 
-        endrecoBanco = new Endereco();
         endrecoBanco = EnderecoSRV.localizarEnderecoPorIdDoAluno(conect, alunoSelecionado.getId(), 1);
 
         if (endrecoBanco.getId() > 0) {
@@ -62,9 +62,8 @@ public class EnderecoBean implements Serializable {
             enderecoEdicao = endrecoBanco;
             enderecoEdicao.setId_cidade(endrecoBanco.getCidadeId().getId());
         } else {
-            
-            enderecoEdicao.setAlunoId(getAlunoSelecionado());
-            enderecoEdicao.setPar("aluno");
+
+            enderecoEdicao = new Endereco();
 
         }
 
@@ -75,6 +74,9 @@ public class EnderecoBean implements Serializable {
     public void salvarEnderecoAluno() throws ClassNotFoundException, SQLException {
 
         conect = TransationSRV.begin(OpcaoTRANSACAO.SEM_TRANSACAO);
+
+        enderecoEdicao.setAlunoId(getAlunoSelecionado());
+        enderecoEdicao.setPar("aluno");
 
         int gravado = 0;
 
@@ -104,7 +106,7 @@ public class EnderecoBean implements Serializable {
             }
 
         } else {
-            
+
             enderecoEdicao.getCidadeId().setId(enderecoEdicao.getId_cidade());
 
             gravado = EnderecoSRV.mergeEndereco(conect, OpcaoDAO.ATUALIZAR, enderecoEdicao);
