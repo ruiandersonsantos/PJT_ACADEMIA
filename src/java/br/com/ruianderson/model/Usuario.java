@@ -23,8 +23,10 @@ public class Usuario implements Serializable {
     private String par;
     private List<Envio> envioList;
     private Academia academiaId;
-    private Aluno alunoId;
-    private Acesso acessoId;
+    private Integer status;
+    private Integer acesso_id;
+    private Integer idacademia;
+    
 
     public Usuario() {
     }
@@ -81,21 +83,49 @@ public class Usuario implements Serializable {
         this.academiaId = academiaId;
     }
 
-    public Aluno getAlunoId() {
-        return alunoId;
+    /**
+     * @return the status
+     */
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setAlunoId(Aluno alunoId) {
-        this.alunoId = alunoId;
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public Acesso getAcessoId() {
-        return acessoId;
+    /**
+     * @return the acesso_id
+     */
+    public Integer getAcesso_id() {
+        return acesso_id;
     }
 
-    public void setAcessoId(Acesso acessoId) {
-        this.acessoId = acessoId;
+    /**
+     * @param acesso_id the acesso_id to set
+     */
+    public void setAcesso_id(Integer acesso_id) {
+        this.acesso_id = acesso_id;
     }
 
+    /**
+     * @return the idacademia
+     */
+    public Integer getIdacademia() {
+        return idacademia;
+    }
+
+    /**
+     * @param idacademia the idacademia to set
+     */
+    public void setIdacademia(Integer idacademia) {
+        this.idacademia = idacademia;
+    }
     
+    
+    
+   
 }

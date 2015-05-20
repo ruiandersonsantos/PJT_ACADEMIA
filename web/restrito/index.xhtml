@@ -95,7 +95,7 @@
                                      disabled="#{AlunoBean.alunoSelecionado == null}"
                                      oncomplete="PF('edicaoMatriculaDialog').show()">
                         <p:resetInput target="matricula-dialog"/>
-                        
+
                         <f:setPropertyActionListener value="#{AlunoBean.alunoSelecionado}" 
                                                      target="#{MatriculaBean.alunoSelecionado}"/>
 
@@ -147,6 +147,7 @@
 
             </p:dataTable>
 
+          
 
 
             <p:dialog header="Novo aluno" widgetVar="edicaoAlunoDialog" id="aluno-dialog"

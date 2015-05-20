@@ -9,11 +9,86 @@
         <meta title="Sistema Gestor de Academias"/>
 
         <h:outputStylesheet library="academia" name="estilo.css" />
+       
     </h:head>
     <h:body>
 
         <header>
-            <h:graphicImage library="academia" name="logo.png" />
+            <h:form id="frm-login">
+
+                <p:panel id="painelmenufixo"  styleClass="painelmenu"  rendered="#{UsuarioBean.usrLogado == null}">
+                    <h:panelGrid columns="2" cellpadding="1" 
+                                 id="painel-head1" columnClasses="colunapainellogin">
+
+                        <h:graphicImage library="academia" name="logo.png" />
+
+                        <p:commandLink oncomplete="PF('loginDialog').show()" styleClass="logininicial">
+                            <h:graphicImage library="academia" name="login_button_ok.png" />
+
+                        </p:commandLink>
+
+
+
+
+                        <p:dialog header="Login do usuario" widgetVar="loginDialog" id="login-dialog" onShow="true"
+                                  resizable="false" modal="true" closeOnEscape="true" >
+
+                            <p:messages id="login-msg" />
+
+                            <h:panelGrid columns="2" id="login-painel">
+
+                                <p:outputLabel value="Codigo Academia" for="codigo-academia"/>
+                                <p:inputText id="codigo-academia" size="10" maxlength="30" value="#{UsuarioBean.usuario.idacademia}"/>
+
+                                <p:outputLabel value="Login:" for="login"/>
+                                <p:inputText id="login" size="40" maxlength="80" value="#{UsuarioBean.usuario.login}"/>
+
+                                <p:outputLabel value="Senha:" for="senha"/>
+                                <p:password id="senha" size="40" maxlength="80" value="#{UsuarioBean.usuario.senha}"/>
+
+                                <p:commandButton value="Logar" id="login-button"
+                                                 action="#{UsuarioBean.login()}"
+                                                 process="frm-login" update="login-msg"/>
+
+                            </h:panelGrid>
+
+                        </p:dialog>
+
+
+
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel id="painelmenufixo1"  styleClass="painelmenu"  rendered="#{UsuarioBean.usrLogado != null}">
+
+                    <h:panelGrid columns="7" cellpadding="1" 
+                                 id="painel-head" columnClasses="colunapainel">
+
+                        <h:graphicImage library="academia" name="logo.png" />
+
+                        <h:graphicImage library="academia" name="home_ok_2.png" value="Inicio" title="Inicio" styleClass="imagemtopo"/>
+
+
+                        <h:graphicImage library="academia" name="aluno.png" title="Aluno" styleClass="imagemtopo" />
+                        <h:graphicImage library="academia" name="exercicio_ok.png" title="Exercicio" styleClass="imagemtopo"/>
+                        <h:graphicImage library="academia" name="treino_ok.png" title="Treino" styleClass="imagemtopo"/>
+                        <h:graphicImage library="academia" name="professor_ok.png" title="Professor" styleClass="imagemtopo"/>
+
+                        <h:commandLink action="#{UsuarioBean.logout()}">
+                            <h:graphicImage library="academia" name="sair_ok.png" title="Sair" styleClass="imagemtopo"/>
+                        </h:commandLink>
+
+
+
+                    </h:panelGrid>
+
+                </p:panel>
+
+
+
+
+            </h:form>
+
         </header>
 
         <div id="conteudo">
@@ -21,7 +96,11 @@
         </div>
 
         <footer>
-            Workshop online "Começando com PrimeFaces"
+            <p id="p_footer">
+                Todos os direitos reservados a RA Soluções em Informatica e Tecnologia LTDA
+            </p>
+
+
         </footer>
 
         <h:form>
