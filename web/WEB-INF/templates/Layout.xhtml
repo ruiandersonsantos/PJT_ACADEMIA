@@ -9,7 +9,7 @@
         <meta title="Sistema Gestor de Academias"/>
 
         <h:outputStylesheet library="academia" name="estilo.css" />
-       
+
     </h:head>
     <h:body>
 
@@ -58,29 +58,11 @@
 
                     </h:panelGrid>
                 </p:panel>
-
                 <p:panel id="painelmenufixo1"  styleClass="painelmenu"  rendered="#{UsuarioBean.usrLogado != null}">
-
-                    <h:panelGrid columns="7" cellpadding="1" 
-                                 id="painel-head" columnClasses="colunapainel">
-
-                        <h:graphicImage library="academia" name="logo.png" />
-
-                        <h:graphicImage library="academia" name="home_ok_2.png" value="Inicio" title="Inicio" styleClass="imagemtopo"/>
-
-
-                        <h:graphicImage library="academia" name="aluno.png" title="Aluno" styleClass="imagemtopo" />
-                        <h:graphicImage library="academia" name="exercicio_ok.png" title="Exercicio" styleClass="imagemtopo"/>
-                        <h:graphicImage library="academia" name="treino_ok.png" title="Treino" styleClass="imagemtopo"/>
-                        <h:graphicImage library="academia" name="professor_ok.png" title="Professor" styleClass="imagemtopo"/>
-
-                        <h:commandLink action="#{UsuarioBean.logout()}">
-                            <h:graphicImage library="academia" name="sair_ok.png" title="Sair" styleClass="imagemtopo"/>
-                        </h:commandLink>
-
-
-
-                    </h:panelGrid>
+                    
+                    <p:commandButton value="Logout" id="logout-button" widgetVar="logoutDialog"
+                                     action="#{UsuarioBean.logout()}"
+                                                 process="frm-login" update="login-msg"/>
 
                 </p:panel>
 

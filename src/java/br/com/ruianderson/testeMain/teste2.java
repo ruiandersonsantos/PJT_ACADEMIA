@@ -5,6 +5,8 @@
  */
 package br.com.ruianderson.testeMain;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Rui
@@ -17,10 +19,11 @@ public class teste2 {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        String dt = "2015-02-31";
+        String dt = JOptionPane.showInputDialog(null, "Entre com a data:");
         
         String ret = dt.substring(8, 10)+"/"+dt.substring(5, 7)+"/"+dt.substring(0, 4);
         
+                
         System.out.println(ret);
     }
     
